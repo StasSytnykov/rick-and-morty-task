@@ -1,4 +1,5 @@
 {
+  "homepage": "https://StasSytnykov.github.io/rick-and-morty-task",
   "name": "rick-and-morty-task",
   "version": "0.1.0",
   "private": true,
@@ -12,6 +13,7 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "axios": "^1.1.3",
+    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
@@ -27,7 +29,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "husky-install": "husky install",
-    "lint-staged": "lint-staged --config lint-staged.js"
+    "lint-staged": "lint-staged --config lint-staged.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
