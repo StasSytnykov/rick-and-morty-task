@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import charactersSlice from "./characters/charactersSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    characters: charactersSlice,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -23,8 +23,14 @@ const initialState: IinitialState = {
 export const charactersSlice = createSlice({
   name: "characters",
   initialState,
-  reducers: {},
-  extraReducers(builder) {
-    // builder.addCase();
+  reducers: {
+    fetchData: (state, action) => {
+      state.status = "success";
+      state.characters = action.payload;
+    },
   },
 });
+
+export const { fetchData } = charactersSlice.actions;
+
+export default charactersSlice.reducer;
