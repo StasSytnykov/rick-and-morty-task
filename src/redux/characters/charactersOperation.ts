@@ -1,12 +1,13 @@
 import { put, call, takeEvery } from "redux-saga/effects";
-import fetchData from "../../api/сharactersApi";
+import { fetchData } from "./charactersSlice";
+import fetchCharacters from "../../api/сharactersApi";
 
 function* fetchCharactersSaga(): Generator {
   try {
-    const response = yield call(fetchData);
-    yield put({ type: "CHARACTERS_FETCH_SUCCEEDED", user: response });
+    const response = yield call(fetchCharacters);
+    yield put(fetchData(response));
   } catch (error) {
-    yield put({ type: "CHARACTERS_FETCH_FAILED", message: "error" });
+    yield put({ type: "CHARACTERS_FETCH_FAILED" });
   }
 }
 
