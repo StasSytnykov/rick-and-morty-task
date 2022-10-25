@@ -2,11 +2,12 @@
 // import fetchData from "../../api/сharactersApi";
 
 export const Main = () => {
-  // fetchData().then((data) => {
-  //   console.log(data);
-  //   return data;
-  // });
-
+  // const dispatch = useAppDispatch();
+  // // fetchData().then((data) => {
+  // //   console.log(data);
+  // //   return data;
+  // // });
+  //
   // dispatch({ type: "CHARACTERS_FETCH_REQUESTED" });
   return <section></section>;
 };
