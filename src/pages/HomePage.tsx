@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useAppDispatch } from "../redux/hooks";
+import { getCharactersFetch } from "../redux/characters/charactersSlice";
 
 export const HomePage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch({ type: "CHARACTERS_FETCH_REQUESTED" });
+    dispatch(getCharactersFetch());
   }, [dispatch]);
 
   return (

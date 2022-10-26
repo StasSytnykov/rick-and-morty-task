@@ -1,19 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import charactersSlice from "./characters/charactersSlice";
-import mySaga from "./characters/charactersOperation";
+import charactersSaga from "./characters/charactersSaga";
 
 const sagaMiddleware = createSagaMiddleware();
-const middleware = [sagaMiddleware];
 
 export const store = configureStore({
   reducer: {
     characters: charactersSlice,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware),
+  middleware: [sagaMiddleware],
 });
-sagaMiddleware.run(mySaga);
+sagaMiddleware.run(charactersSaga);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
