@@ -2,20 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 // import charactersOperation from "./charactersOperation";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 // // import { RootState } from "../store";
+import { ICharacter } from "../../utils/types";
 
-type TCharacter = {
-  id: number;
-  name: string;
-  image: string;
-};
-
-interface IinitialState {
-  characters: TCharacter[];
+type InitialState = {
+  characters: ICharacter[];
   status: string;
   error: null | string;
-}
+};
 
-const initialState: IinitialState = {
+const initialState: InitialState = {
   characters: [],
   status: "idle",
   error: null,
