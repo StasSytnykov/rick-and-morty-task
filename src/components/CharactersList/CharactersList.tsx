@@ -1,14 +1,18 @@
 import { ICharacter } from "../../utils/types";
-import { CharactersListStyled } from "./CharactersList.module";
+import {
+  CharactersListStyled,
+  CharactersItemStyled,
+  CharactersNameStyled,
+} from "./CharactersList.module";
 
 export const CharactersList = ({ characters }: ICharacter[] | any) => {
   return (
     <CharactersListStyled>
       {characters.map((character: ICharacter) => (
-        <li key={character.id}>
+        <CharactersItemStyled key={character.id}>
           <img src={character.image} alt="character" />
-          <p>{character.name}</p>
-        </li>
+          <CharactersNameStyled>{character.name}</CharactersNameStyled>
+        </CharactersItemStyled>
       ))}
     </CharactersListStyled>
   );
