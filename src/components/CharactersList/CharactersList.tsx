@@ -1,9 +1,12 @@
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Loader } from "../Loader/Loader";
 import { ICharacter } from "../../utils/types";
 import {
+  CharactersLoaderThumb,
   CharactersListStyled,
   CharactersItemStyled,
   CharactersNameStyled,
+  CharactersEndedText,
 } from "./CharactersList.module";
 
 interface Props {
@@ -17,8 +20,12 @@ export const CharactersList = (props: Props) => {
       dataLength={props.characters.length}
       next={props.onLoadMoreCharacters}
       hasMore={props.characters.length < 826}
-      loader={<h4>Loading...</h4>}
-      endMessage={<h2>Characters ended</h2>}
+      loader={
+        <CharactersLoaderThumb>
+          <Loader />
+        </CharactersLoaderThumb>
+      }
+      endMessage={<CharactersEndedText>Characters ended</CharactersEndedText>}
     >
       <CharactersListStyled>
         {props.characters.map((character: ICharacter) => (
