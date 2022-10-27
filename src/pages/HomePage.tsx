@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { charactersSelector } from "../redux/characters/charactersSelector";
 import { getCharactersFetch } from "../redux/characters/charactersSlice";
 import { CharactersList } from "../components/CharactersList/CharactersList";
 
@@ -7,7 +8,7 @@ export const HomePage = () => {
   const [page, setPage] = useState(2);
 
   const dispatch = useAppDispatch();
-  const characters = useAppSelector((state) => state.characters.characters);
+  const characters = useAppSelector(charactersSelector);
 
   const onLoadMoreCharacters = () => {
     setPage((prevState) => {

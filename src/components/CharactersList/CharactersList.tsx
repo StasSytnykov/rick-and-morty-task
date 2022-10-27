@@ -1,4 +1,5 @@
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
 import { ICharacter } from "../../utils/types";
 import {
@@ -29,10 +30,12 @@ export const CharactersList = (props: Props) => {
     >
       <CharactersListStyled>
         {props.characters.map((character: ICharacter) => (
-          <CharactersItemStyled key={character.id}>
-            <img src={character.image} alt="character" />
-            <CharactersNameStyled>{character.name}</CharactersNameStyled>
-          </CharactersItemStyled>
+          <Link to={`character/${character.id}`}>
+            <CharactersItemStyled key={character.id}>
+              <img src={character.image} alt={character.name} />
+              <CharactersNameStyled>{character.name}</CharactersNameStyled>
+            </CharactersItemStyled>
+          </Link>
         ))}
       </CharactersListStyled>
     </InfiniteScroll>
