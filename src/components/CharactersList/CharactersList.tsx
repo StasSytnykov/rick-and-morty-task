@@ -30,12 +30,12 @@ export const CharactersList = (props: Props) => {
     >
       <CharactersListStyled>
         {props.characters.map((character: ICharacter) => (
-          <Link to={`character/${character.id}`}>
-            <CharactersItemStyled key={character.id}>
+          <CharactersItemStyled key={character.id}>
+            <Link to={`character/${character.id}`}>
               <img src={character.image} alt={character.name} />
               <CharactersNameStyled>{character.name}</CharactersNameStyled>
-            </CharactersItemStyled>
-          </Link>
+            </Link>
+          </CharactersItemStyled>
         ))}
       </CharactersListStyled>
     </InfiniteScroll>

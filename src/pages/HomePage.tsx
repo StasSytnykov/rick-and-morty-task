@@ -1,26 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { charactersSelector } from "../redux/characters/charactersSelector";
-import { getCharactersFetch } from "../redux/characters/charactersSlice";
+import {
+  getCharactersFetch,
+  getPage,
+} from "../redux/characters/charactersSlice";
 import { CharactersList } from "../components/CharactersList/CharactersList";
 
 export const HomePage = () => {
-  const [page, setPage] = useState(2);
-
-  const dispatch = useAppDispatch();
   const characters = useAppSelector(charactersSelector);
+  const page = useAppSelector((state) => state.characters.page);
+  const dispatch = useAppDispatch();
 
   const onLoadMoreCharacters = () => {
-    setPage((prevState) => {
-      if (prevState < 42) return prevState + 1;
-      return prevState;
-    });
+    dispatch(getPage());
     dispatch(getCharactersFetch(page));
   };
 
   useEffect(() => {
-    dispatch(getCharactersFetch(1));
-  }, [dispatch]);
+    if (characters.length === 0) {
+      dispatch(getCharactersFetch(1));
+    }
+  }, [dispatch, characters]);
 
   return (
     <div>

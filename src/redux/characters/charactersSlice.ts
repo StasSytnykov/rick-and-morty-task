@@ -8,18 +8,25 @@ type InitialState = {
   characters: ICharacter[];
   status: string;
   error: null | string;
+  page: number;
 };
 
 const initialState: InitialState = {
   characters: [],
   status: "idle",
   error: null,
+  page: 2,
 };
 
 export const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
+    getPage: (state) => {
+      if (state.page < 42) {
+        state.page = state.page + 1;
+      }
+    },
     getCharactersFetch: (state, payload) => {
       state.status = "loading";
     },
@@ -41,6 +48,7 @@ export const {
   getCharactersFetch,
   getCharactersSuccess,
   getCharactersFailure,
+  getPage,
 } = charactersSlice.actions;
 
 export default charactersSlice.reducer;
