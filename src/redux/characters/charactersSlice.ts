@@ -20,12 +20,15 @@ export const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
-    getCharactersFetch: (state) => {
+    getCharactersFetch: (state, payload) => {
       state.status = "loading";
     },
     getCharactersSuccess: (state, action) => {
       state.status = "success";
-      state.characters = action.payload;
+
+      state.characters.length > 0
+        ? (state.characters = state.characters.concat(action.payload))
+        : (state.characters = action.payload);
     },
     getCharactersFailure: (state) => {
       state.status = "failed";

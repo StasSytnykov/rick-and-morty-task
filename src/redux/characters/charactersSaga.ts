@@ -1,18 +1,18 @@
-import { put, call, takeEvery } from "redux-saga/effects";
+import { call, delay, put, takeEvery } from "redux-saga/effects";
+import { AnyAction } from "@reduxjs/toolkit";
 import { getCharactersSuccess, getCharactersFailure } from "./charactersSlice";
 import fetchCharacters from "../../api/сharactersApi";
 
-function* workGetCharactersFetch(): Generator {
+function* workGetCharactersFetch({ payload }: AnyAction): Generator {
   try {
-    const characters = yield call(fetchCharacters);
-    yield put(getCharactersSuccess(characters));
+    const response = yield call(fetchCharacters, payload);
+    yield delay(2000);
+    yield put(getCharactersSuccess(response));
   } catch (error) {
     yield put(getCharactersFailure());
   }
 }
 
-function* charactersSaga() {
+export default function* charactersSaga() {
   yield takeEvery("characters/getCharactersFetch", workGetCharactersFetch);
 }
-
-export default charactersSaga;
