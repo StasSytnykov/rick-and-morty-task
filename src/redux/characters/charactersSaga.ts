@@ -9,7 +9,7 @@ function* workGetCharactersFetch({ payload }: AnyAction): Generator {
     yield delay(2000);
     yield put(getCharactersSuccess(response));
   } catch (error) {
-    yield put(getCharactersFailure());
+    yield put(getCharactersFailure(error));
   }
 }
 

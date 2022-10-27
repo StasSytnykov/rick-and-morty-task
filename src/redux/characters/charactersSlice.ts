@@ -7,7 +7,7 @@ import { ICharacter } from "../../utils/types";
 type InitialState = {
   characters: ICharacter[];
   status: string;
-  error: null | string;
+  error: null | { message: string };
   page: number;
 };
 
@@ -37,9 +37,9 @@ export const charactersSlice = createSlice({
         ? (state.characters = state.characters.concat(action.payload))
         : (state.characters = action.payload);
     },
-    getCharactersFailure: (state) => {
+    getCharactersFailure: (state, action) => {
       state.status = "failed";
-      state.error = "something went wrong";
+      state.error = action.payload;
     },
   },
 });

@@ -10,6 +10,7 @@ import { CharactersList } from "../components/CharactersList/CharactersList";
 export const HomePage = () => {
   const characters = useAppSelector(charactersSelector);
   const page = useAppSelector((state) => state.characters.page);
+  const error = useAppSelector((state) => state.characters.error);
   const dispatch = useAppDispatch();
 
   const onLoadMoreCharacters = () => {
@@ -23,7 +24,9 @@ export const HomePage = () => {
     }
   }, [dispatch, characters]);
 
-  return (
+  return error ? (
+    <div>{error.message}</div>
+  ) : (
     <div>
       <CharactersList
         characters={characters}
