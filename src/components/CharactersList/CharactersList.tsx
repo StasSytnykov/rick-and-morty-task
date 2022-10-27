@@ -31,7 +31,7 @@ export const CharactersList = (props: Props) => {
       <CharactersListStyled>
         {props.characters.map((character: ICharacter) => (
           <CharactersItemStyled key={character.id}>
-            <Link to={`character/${character.id}`}>
+            <Link to={`characterId/${character.id}`}>
               <img src={character.image} alt={character.name} />
               <CharactersNameStyled>{character.name}</CharactersNameStyled>
             </Link>

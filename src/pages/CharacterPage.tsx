@@ -19,6 +19,6 @@ export const CharacterPage = () => {
       status={selectedCharacter.status}
     />
   ) : (
-    <div></div>
+    <div>Character not found</div>
   );
 };
