@@ -17,7 +17,7 @@ export const CharacterItem = ({ selectedCharacter }: Props) => (
 
     <CharacterItemTextThumb>
       <CharacterItemTitle>{selectedCharacter.name}</CharacterItemTitle>
-      <CharacterItemTextStatus>
+      <CharacterItemTextStatus props={selectedCharacter.status}>
         {selectedCharacter.status} - {selectedCharacter.species}
       </CharacterItemTextStatus>
       <CharacterItemText>Gender: {selectedCharacter.gender}</CharacterItemText>

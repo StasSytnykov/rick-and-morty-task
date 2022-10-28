@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
+type TextStatusProps = {
+  props: string;
+};
+
 const CharacterItemStyled = styled.div`
   display: flex;
-  margin: 0 auto;
+  margin: 100px auto 0 auto;
 
   width: 600px;
   border-radius: 10px;
@@ -24,7 +28,7 @@ const CharacterItemText = styled.p`
   font-size: 20px;
 `;
 
-const CharacterItemTextStatus = styled(CharacterItemText)`
+const CharacterItemTextStatus = styled(CharacterItemText)<TextStatusProps>`
   display: flex;
   align-items: center;
 
@@ -36,7 +40,10 @@ const CharacterItemTextStatus = styled(CharacterItemText)`
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #10da18;
+    background-color: ${(props) =>
+      (props.props === "unknown" && "grey") ||
+      (props.props === "Alive" && "#0ac512") ||
+      (props.props === "Dead" && "#f00a0a")};
   }
 `;
 
