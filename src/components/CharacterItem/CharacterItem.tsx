@@ -1,3 +1,11 @@
+import {
+  CharacterItemStyled,
+  CharacterItemTextThumb,
+  CharacterItemTitle,
+  CharacterItemText,
+  CharacterItemTextStatus,
+} from "./CharacterItem.styled";
+
 interface Props {
   name: string;
   image: string;
@@ -13,11 +21,15 @@ export const CharacterItem = ({
   species,
   status,
 }: Props) => (
-  <div>
-    <h2>{name}</h2>
+  <CharacterItemStyled>
     <img src={image} alt={"character"} />
-    <p>{gender}</p>
-    <p>{species}</p>
-    <p>{status}</p>
-  </div>
+
+    <CharacterItemTextThumb>
+      <CharacterItemTitle>{name}</CharacterItemTitle>
+      <CharacterItemTextStatus>
+        {status} - {species}
+      </CharacterItemTextStatus>
+      <CharacterItemText>Gender: {gender}</CharacterItemText>
+    </CharacterItemTextThumb>
+  </CharacterItemStyled>
 );
