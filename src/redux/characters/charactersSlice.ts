@@ -6,10 +6,12 @@ import { ICharacter } from "../../utils/types";
 
 type InitialState = {
   characters: ICharacter[];
-  status: string;
+  status: "idle" | "loading" | "success" | "failed";
   error: null | { message: string };
   page: number;
 };
+
+const MAX_PAGE = 42;
 
 const initialState: InitialState = {
   characters: [],
@@ -23,7 +25,7 @@ export const charactersSlice = createSlice({
   initialState,
   reducers: {
     getPage: (state) => {
-      if (state.page < 42) {
+      if (state.page < MAX_PAGE) {
         state.page = state.page + 1;
       }
     },

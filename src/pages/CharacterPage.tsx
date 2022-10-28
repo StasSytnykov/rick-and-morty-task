@@ -11,13 +11,7 @@ export const CharacterPage = () => {
   );
 
   return selectedCharacter ? (
-    <CharacterItem
-      name={selectedCharacter.name}
-      image={selectedCharacter.image}
-      gender={selectedCharacter.gender}
-      species={selectedCharacter.species}
-      status={selectedCharacter.status}
-    />
+    <CharacterItem selectedCharacter={selectedCharacter} />
   ) : (
     <div>Character not found</div>
   );

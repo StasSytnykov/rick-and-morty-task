@@ -15,12 +15,14 @@ interface Props {
   onLoadMoreCharacters: () => void;
 }
 
-export const CharactersList = (props: Props) => {
+const MAX_CHARACTERS = 826;
+
+export const CharactersList = ({ characters, onLoadMoreCharacters }: Props) => {
   return (
     <InfiniteScroll
-      dataLength={props.characters.length}
-      next={props.onLoadMoreCharacters}
-      hasMore={props.characters.length < 826}
+      dataLength={characters.length}
+      next={onLoadMoreCharacters}
+      hasMore={characters.length < MAX_CHARACTERS}
       loader={
         <CharactersLoaderThumb>
           <Loader />
@@ -29,7 +31,7 @@ export const CharactersList = (props: Props) => {
       endMessage={<CharactersEndedText>Characters ended</CharactersEndedText>}
     >
       <CharactersListStyled>
-        {props.characters.map((character: ICharacter) => (
+        {characters.map((character: ICharacter) => (
           <CharactersItemStyled key={character.id}>
             <Link to={`characterId/${character.id}`}>
               <img src={character.image} alt={character.name} />

@@ -5,31 +5,22 @@ import {
   CharacterItemText,
   CharacterItemTextStatus,
 } from "./CharacterItem.styled";
+import { ICharacter } from "../../utils/types";
 
 interface Props {
-  name: string;
-  image: string;
-  species: string;
-  gender: string;
-  status: string;
+  selectedCharacter: ICharacter;
 }
 
-export const CharacterItem = ({
-  name,
-  image,
-  gender,
-  species,
-  status,
-}: Props) => (
+export const CharacterItem = ({ selectedCharacter }: Props) => (
   <CharacterItemStyled>
-    <img src={image} alt={"character"} />
+    <img src={selectedCharacter.image} alt={"character"} />
 
     <CharacterItemTextThumb>
-      <CharacterItemTitle>{name}</CharacterItemTitle>
+      <CharacterItemTitle>{selectedCharacter.name}</CharacterItemTitle>
       <CharacterItemTextStatus>
-        {status} - {species}
+        {selectedCharacter.status} - {selectedCharacter.species}
       </CharacterItemTextStatus>
-      <CharacterItemText>Gender: {gender}</CharacterItemText>
+      <CharacterItemText>Gender: {selectedCharacter.gender}</CharacterItemText>
     </CharacterItemTextThumb>
   </CharacterItemStyled>
 );

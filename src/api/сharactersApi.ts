@@ -8,5 +8,3 @@ const fetchCharacters = async (page: number) => {
 };
 
 export default fetchCharacters;
-
-export {};
