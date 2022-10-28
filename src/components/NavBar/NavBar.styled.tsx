@@ -15,15 +15,11 @@ const WebSiteTitle = styled.h1`
 
 const NavLinkThumb = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 const NavLinkTextThumb = styled.div`
   font-size: 30px;
-
-  &:not(:last-child) {
-    margin-right: 50px;
-  }
 `;
 
 export { NavBarStyled, WebSiteTitle, NavLinkThumb, NavLinkTextThumb };
