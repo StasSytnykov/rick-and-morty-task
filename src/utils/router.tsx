@@ -5,7 +5,7 @@ import { CharacterPage } from "../pages/CharacterPage";
 
 export const router = createBrowserRouter([
   {
-    path: "/rick-and-morty-task",
+    path: "/",
     element: <App />,
     children: [
       { path: "", element: <HomePage /> },

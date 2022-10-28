@@ -1,23 +1,20 @@
+import { ICharacter } from "../../utils/types";
+
 interface Props {
-  name: string;
-  image: string;
-  species: string;
-  gender: string;
-  status: string;
+  selectedCharacter: ICharacter;
 }
 
-export const CharacterItem = ({
-  name,
-  image,
-  gender,
-  species,
-  status,
-}: Props) => (
+export const CharacterItem = ({ selectedCharacter }: Props) => (
   <div>
-    <h2>{name}</h2>
-    <img src={image} alt={"character"} />
-    <p>{gender}</p>
-    <p>{species}</p>
-    <p>{status}</p>
+    <h2>{selectedCharacter.name}</h2>
+    <img
+      src={selectedCharacter.image}
+      alt={"character"}
+      width={300}
+      height={300}
+    />
+    <p>{selectedCharacter.gender}</p>
+    <p>{selectedCharacter.species}</p>
+    <p>{selectedCharacter.status}</p>
   </div>
 );
