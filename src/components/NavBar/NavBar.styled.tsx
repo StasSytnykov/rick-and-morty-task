@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const NavBarStyled = styled.div`
-  padding: 100px;
+  padding: 50px 0;
   background-color: rgb(32, 35, 41);
 `;
 
