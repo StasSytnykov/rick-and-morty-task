@@ -7,9 +7,15 @@ const fetchCharacters = async (page: number) => {
   return data.results;
 };
 
-// const fetchEpisodes = async () => {
-//   const { data } = await axios.get("episode");
-//   return data.results;
-// };
+const fetchEpisodes = async () => {
+  const pageOne = await axios.get("episode/?page=1");
+  const pageTwo = await axios.get("episode/?page=2");
+  const pageThree = await axios.get("episode/?page=3");
+  return [
+    ...pageOne.data.results,
+    ...pageTwo.data.results,
+    ...pageThree.data.results,
+  ];
+};
 
-export { fetchCharacters };
+export { fetchCharacters, fetchEpisodes };
