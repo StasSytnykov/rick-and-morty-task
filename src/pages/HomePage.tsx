@@ -4,7 +4,7 @@ import {
   charactersSelector,
   pageSelector,
   errorSelector,
-} from "../redux/characters/charactersSelector";
+} from "../redux/selectors";
 import {
   getCharactersFetch,
   getPage,

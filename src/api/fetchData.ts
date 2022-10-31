@@ -7,4 +7,9 @@ const fetchCharacters = async (page: number) => {
   return data.results;
 };
 
-export default fetchCharacters;
+// const fetchEpisodes = async () => {
+//   const { data } = await axios.get("episode");
+//   return data.results;
+// };
+
+export { fetchCharacters };

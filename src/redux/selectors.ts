@@ -1,4 +1,4 @@
-import { RootState } from "../store";
+import { RootState } from "./store";
 
 const charactersSelector = (state: RootState) => state.characters.characters;
 const pageSelector = (state: RootState) => state.characters.page;
