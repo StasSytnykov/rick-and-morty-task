@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IAllCharacters } from "../../utils/types";
+import { ICharacter } from "../../utils/types";
 
 type InitialState = {
-  allCharacters: IAllCharacters[];
+  allCharacters: ICharacter[];
   status: "idle" | "loading" | "success" | "failed";
   error: null | { message: string };
 };
@@ -14,7 +14,7 @@ const initialState: InitialState = {
 };
 
 export const allCharactersSlice = createSlice({
-  name: "episodes",
+  name: "allCharacters",
   initialState,
   reducers: {
     getAllCharactersFetch: (state) => {

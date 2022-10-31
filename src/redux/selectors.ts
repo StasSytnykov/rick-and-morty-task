@@ -6,13 +6,13 @@ const charactersErrorSelector = (state: RootState) => state.characters.error;
 
 const allCharactersSelector = (state: RootState) =>
   state.allCharacters.allCharacters;
-const allCharactersErrorSelector = (state: RootState) =>
-  state.allCharacters.error;
+// const allCharactersErrorSelector = (state: RootState) =>
+//   state.allCharacters.error;
 
 export {
   charactersSelector,
   charactersPageSelector,
   charactersErrorSelector,
   allCharactersSelector,
-  allCharactersErrorSelector,
+  // allCharactersErrorSelector,
 };

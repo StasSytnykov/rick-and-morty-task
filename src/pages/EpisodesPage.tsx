@@ -1,9 +1,16 @@
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { Episodes } from "../components/Episodes/Episodes";
-import { fetchAllCharacters } from "../api/fetchData";
+import { getAllCharactersFetch } from "../redux/allCharacters/allCharactersSlice";
+import { allCharactersSelector } from "../redux/selectors";
 
 export const EpisodesPage = () => {
-  fetchAllCharacters().then((data) => {
-    console.log(data);
-  });
-  return <Episodes />;
+  const dispatch = useAppDispatch();
+  const allCharacters = useAppSelector(allCharactersSelector);
+
+  useEffect(() => {
+    dispatch(getAllCharactersFetch());
+  }, [dispatch]);
+
+  return <Episodes allCharacters={allCharacters} />;
 };

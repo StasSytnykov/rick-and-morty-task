@@ -8,17 +8,7 @@ export interface ICharacter {
   origin: object;
   location: object;
   image: string;
-  episodes: string[];
-  url: string;
-  created: string;
-}
-
-export interface IAllCharacters {
-  id: number;
-  name: string;
-  air_date: string;
-  episode: string;
-  characters: string[];
+  episode: string[];
   url: string;
   created: string;
 }
