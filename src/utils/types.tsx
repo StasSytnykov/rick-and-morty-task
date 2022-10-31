@@ -13,7 +13,7 @@ export interface ICharacter {
   created: string;
 }
 
-export interface IEpisodes {
+export interface IAllCharacters {
   id: number;
   name: string;
   air_date: string;
