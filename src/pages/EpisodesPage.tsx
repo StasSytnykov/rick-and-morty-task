@@ -9,6 +9,9 @@ import {
 } from "../redux/selectors";
 import { ICharacter } from "../utils/types";
 
+const FIRST_CHARACTER_BY_NAME = "26 Years Old Morty";
+const FIRST_CHARACTER_BY_NUMBER_OF_EPISODES = "Rick Sanchez";
+
 export const EpisodesPage = () => {
   const [sortedCharacters, setSortedCharacters] = useState<ICharacter[]>([]);
   const allCharacters = useAppSelector(allCharactersSelector);
@@ -20,7 +23,7 @@ export const EpisodesPage = () => {
     setSortedCharacters(
       [...allCharacters].sort((a, b) => b.episode.length - a.episode.length)
     );
-    if (sortedCharacters[0].name === "Rick Sanchez") {
+    if (sortedCharacters[0].name === FIRST_CHARACTER_BY_NUMBER_OF_EPISODES) {
       const reversedSortedCharacters = [...sortedCharacters].reverse();
       setSortedCharacters(reversedSortedCharacters);
     }
@@ -30,7 +33,7 @@ export const EpisodesPage = () => {
     setSortedCharacters(
       [...allCharacters].sort((a, b) => a.name[0].localeCompare(b.name[0]))
     );
-    if (sortedCharacters[0].name === "26 Years Old Morty") {
+    if (sortedCharacters[0].name === FIRST_CHARACTER_BY_NAME) {
       setSortedCharacters(
         [...allCharacters].sort((a, b) => b.name[0].localeCompare(a.name[0]))
       );
