@@ -6,6 +6,7 @@ const charactersErrorSelector = (state: RootState) => state.characters.error;
 
 const allCharactersSelector = (state: RootState) =>
   state.allCharacters.allCharacters;
+const isLoadingAllCharacters = (state: RootState) => state.allCharacters.status;
 const allCharactersErrorSelector = (state: RootState) =>
   state.allCharacters.error;
 
@@ -14,5 +15,6 @@ export {
   charactersPageSelector,
   charactersErrorSelector,
   allCharactersSelector,
+  isLoadingAllCharacters,
   allCharactersErrorSelector,
 };

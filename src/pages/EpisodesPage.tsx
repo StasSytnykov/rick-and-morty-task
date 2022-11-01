@@ -5,6 +5,7 @@ import { getAllCharactersFetch } from "../redux/allCharacters/allCharactersSlice
 import {
   allCharactersErrorSelector,
   allCharactersSelector,
+  isLoadingAllCharacters,
 } from "../redux/selectors";
 import { ICharacter } from "../utils/types";
 
@@ -12,6 +13,7 @@ export const EpisodesPage = () => {
   const [sortedCharacters, setSortedCharacters] = useState<ICharacter[]>([]);
   const allCharacters = useAppSelector(allCharactersSelector);
   const error = useAppSelector(allCharactersErrorSelector);
+  const isLoading = useAppSelector(isLoadingAllCharacters);
   const dispatch = useAppDispatch();
 
   const handleSortedCharactersByNumberOfSeries = () => {
@@ -49,6 +51,7 @@ export const EpisodesPage = () => {
     <div>{error.message}</div>
   ) : (
     <Episodes
+      isLoading={isLoading}
       sortedCharacters={sortedCharacters}
       handleSortedCharactersByNumberOfSeries={
         handleSortedCharactersByNumberOfSeries

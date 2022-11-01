@@ -10,10 +10,13 @@ export const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { path: "characters", element: <HomePage /> },
-      { path: "characters/characterId/:id", element: <CharacterPage /> },
-      { path: "statistics", element: <StatisticsPage /> },
-      { path: "statistics/episodes", element: <EpisodesPage /> },
+      { index: true, element: <HomePage /> },
+      { path: "character/id=:id", element: <CharacterPage /> },
+      {
+        path: "statistics",
+        element: <StatisticsPage />,
+        children: [{ path: "episodes", element: <EpisodesPage /> }],
+      },
     ],
   },
 ]);

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { NavLinkThumb, NavLinkTextThumb } from "./Statistics.styled";
 
 export const Statistics = () => (
@@ -11,5 +11,6 @@ export const Statistics = () => (
         <NavLink to={"location"}>Location</NavLink>
       </NavLinkTextThumb>
     </NavLinkThumb>
+    <Outlet />
   </>
 );
