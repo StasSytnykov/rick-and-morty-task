@@ -1,42 +1,33 @@
 import { ICharacter } from "../../utils/types";
 
 interface Props {
-  allCharacters: ICharacter[];
+  sortedCharacters: ICharacter[];
+  handleSortedCharactersByNumberOfSeries: () => void;
+  handleSortedCharactersByName: () => void;
 }
 
-export const Episodes = ({ allCharacters }: Props) => (
+export const Episodes = ({
+  sortedCharacters,
+  handleSortedCharactersByNumberOfSeries,
+  handleSortedCharactersByName,
+}: Props) => (
   <table>
     <thead>
       <tr>
-        <th>Character name</th>
-        <th>Number of episodes</th>
+        <th onClick={handleSortedCharactersByName}>Character name</th>
+        <th onClick={handleSortedCharactersByNumberOfSeries}>
+          Number of episodes
+        </th>
       </tr>
     </thead>
 
     <tbody>
-      {allCharacters.map(({ name, id, episode }) => {
-        return (
-          <tr key={id}>
-            <td>{name}</td>
-            <td>
-              {episode.map((item) => {
-                const splitedEpisode = item.split("").splice(-2);
-                const slashIndex = splitedEpisode.indexOf("/");
-
-                if (slashIndex !== -1) {
-                  splitedEpisode.splice(slashIndex, 1);
-                }
-
-                if (splitedEpisode.length > 1) {
-                  return `${splitedEpisode.join("")}, `;
-                }
-
-                return `${splitedEpisode}, `;
-              })}
-            </td>
-          </tr>
-        );
-      })}
+      {sortedCharacters.map(({ name, id, episode }) => (
+        <tr key={id}>
+          <td>{name}</td>
+          <td>{episode.length}</td>
+        </tr>
+      ))}
     </tbody>
   </table>
 );
