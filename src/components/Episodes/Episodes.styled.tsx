@@ -21,6 +21,27 @@ const TableThStyled = styled.th`
 
 const TableTrHeadStyled = styled.tr`
   background: linear-gradient(45deg, #5f2c82, #49a09d);
+  height: 50px;
+`;
+
+const TableHeadNumberThumb = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const IconLetterThumb = styled.div`
+  margin-left: 10px;
+`;
+
+const IconNumberThumb = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+`;
+
+const Icon = styled.i`
+  opacity: 50%;
 `;
 
 const TableTrStyled = styled.tr`
@@ -36,6 +57,10 @@ const TableTdStyled = styled.td`
 `;
 
 export {
+  IconLetterThumb,
+  Icon,
+  TableHeadNumberThumb,
+  IconNumberThumb,
   LoaderThumb,
   TableStyled,
   TableTrHeadStyled,

@@ -9,8 +9,8 @@ import {
 } from "../redux/selectors";
 import { ICharacter } from "../utils/types";
 
-const FIRST_CHARACTER_BY_NAME = "26 Years Old Morty";
-const FIRST_CHARACTER_BY_NUMBER_OF_EPISODES = "Rick Sanchez";
+export const FIRST_CHARACTER_BY_NAME = "26 Years Old Morty";
+export const FIRST_CHARACTER_BY_NUMBER_OF_EPISODES = "Rick Sanchez";
 
 export const EpisodesPage = () => {
   const [sortedCharacters, setSortedCharacters] = useState<ICharacter[]>([]);

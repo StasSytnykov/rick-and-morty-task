@@ -5,9 +5,14 @@ import {
   TableTrStyled,
   TableTdStyled,
   TableThStyled,
+  IconNumberThumb,
+  TableHeadNumberThumb,
+  Icon,
+  IconLetterThumb,
 } from "./Episodes.styled";
 import { Loader } from "../Loader/Loader";
 import { ICharacter } from "../../utils/types";
+import { FIRST_CHARACTER_BY_NUMBER_OF_EPISODES } from "../../pages/EpisodesPage";
 
 interface Props {
   sortedCharacters: ICharacter[];
@@ -21,8 +26,8 @@ export const Episodes = ({
   sortedCharacters,
   handleSortedCharactersByNumberOfSeries,
   handleSortedCharactersByName,
-}: Props) =>
-  isLoading === "loading" ? (
+}: Props) => {
+  return isLoading === "loading" ? (
     <LoaderThumb>
       <Loader />
     </LoaderThumb>
@@ -31,10 +36,34 @@ export const Episodes = ({
       <thead>
         <TableTrHeadStyled>
           <TableThStyled onClick={handleSortedCharactersByName}>
-            Character name
+            <TableHeadNumberThumb>
+              Character name
+              <IconLetterThumb>
+                <i className="fa-solid fa-arrow-up-a-z"></i>
+                <i className="fa-solid fa-arrow-down-a-z"></i>
+              </IconLetterThumb>
+            </TableHeadNumberThumb>
           </TableThStyled>
           <TableThStyled onClick={handleSortedCharactersByNumberOfSeries}>
-            Number of episodes
+            <TableHeadNumberThumb>
+              Number of episodes
+              <IconNumberThumb>
+                {sortedCharacters.length !== 0 &&
+                sortedCharacters[0].name ===
+                  FIRST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
+                  <i className="fa-solid fa-sort-up"></i>
+                ) : (
+                  <Icon className="fa-solid fa-sort-up"></Icon>
+                )}
+                {sortedCharacters.length !== 0 &&
+                sortedCharacters[0].name !==
+                  FIRST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
+                  <i className="fa-solid fa-sort-down"></i>
+                ) : (
+                  <Icon className="fa-solid fa-sort-down"></Icon>
+                )}
+              </IconNumberThumb>
+            </TableHeadNumberThumb>
           </TableThStyled>
         </TableTrHeadStyled>
       </thead>
@@ -49,3 +78,4 @@ export const Episodes = ({
       </tbody>
     </TableStyled>
   );
+};
