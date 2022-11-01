@@ -8,24 +8,38 @@ const LoaderThumb = styled.div`
 `;
 
 const TableStyled = styled.table`
-  margin: 0 auto;
-
+  margin: 25px auto 0 auto;
   border-collapse: collapse;
+
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  color: #fff;
 `;
 
 const TableThStyled = styled.th`
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.2);
+`;
 
-  border: 1px solid orange;
+const TableTrHeadStyled = styled.tr`
+  background: linear-gradient(45deg, #5f2c82, #49a09d);
+`;
+
+const TableTrStyled = styled.tr`
+  background: linear-gradient(45deg, #5f2c82, #49a09d);
+  &:nth-child(odd) {
+    background: linear-gradient(45deg, #49a09d, #5f2c82);
+  }
 `;
 
 const TableTdStyled = styled.td`
   text-align: center;
-  border: 1px solid orange;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.2);
 `;
 
-export { LoaderThumb, TableStyled, TableThStyled, TableTdStyled };
+export {
+  LoaderThumb,
+  TableStyled,
+  TableTrHeadStyled,
+  TableTrStyled,
+  TableThStyled,
+  TableTdStyled,
+};

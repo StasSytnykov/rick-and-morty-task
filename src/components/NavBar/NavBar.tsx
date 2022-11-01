@@ -12,10 +12,11 @@ export const NavBar = () => (
     <NavLinkThumb>
       <NavLinkTextThumb>
         <NavLink
-          to={"characters"}
+          to={"/"}
           style={({ isActive }) => ({
             color: isActive ? "rgb(218, 75, 12)" : "rgb(255, 255, 255)",
           })}
+          end
         >
           Home page
         </NavLink>

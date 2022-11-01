@@ -1,6 +1,8 @@
 import {
   LoaderThumb,
   TableStyled,
+  TableTrHeadStyled,
+  TableTrStyled,
   TableTdStyled,
   TableThStyled,
 } from "./Episodes.styled";
@@ -27,22 +29,22 @@ export const Episodes = ({
   ) : (
     <TableStyled>
       <thead>
-        <tr>
+        <TableTrHeadStyled>
           <TableThStyled onClick={handleSortedCharactersByName}>
             Character name
           </TableThStyled>
           <TableThStyled onClick={handleSortedCharactersByNumberOfSeries}>
             Number of episodes
           </TableThStyled>
-        </tr>
+        </TableTrHeadStyled>
       </thead>
 
       <tbody>
         {sortedCharacters.map(({ name, id, episode }) => (
-          <tr key={id}>
+          <TableTrStyled key={id}>
             <TableTdStyled>{name}</TableTdStyled>
             <TableTdStyled>{episode.length}</TableTdStyled>
-          </tr>
+          </TableTrStyled>
         ))}
       </tbody>
     </TableStyled>
