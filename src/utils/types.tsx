@@ -32,4 +32,4 @@ export interface InitialState {
   page: number;
 }
 
-export type SortType = "DESC" | "ASC" | "";
+export type SortType = "DESC_NAME" | "ASC_NAME" | "DESC_NUM" | "ASC_NUM";
