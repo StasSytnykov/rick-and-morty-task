@@ -13,7 +13,12 @@ interface Props {
 
 export const CharacterItem = ({ selectedCharacter }: Props) => (
   <CharacterItemStyled>
-    <img src={selectedCharacter.image} alt={"character"} />
+    <img
+      src={selectedCharacter.image}
+      alt={"character"}
+      width={300}
+      height={300}
+    />
 
     <CharacterItemTextThumb>
       <CharacterItemTitle>{selectedCharacter.name}</CharacterItemTitle>
