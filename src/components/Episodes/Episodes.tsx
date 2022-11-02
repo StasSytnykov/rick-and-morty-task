@@ -11,14 +11,10 @@ import {
   IconLetterThumb,
 } from "./Episodes.styled";
 import { Loader } from "../Loader/Loader";
-import { ICharacter, SortType } from "../../utils/types";
+import { ICharacter, Props } from "../../utils/types";
 
-interface Props {
+interface ICharactersProps extends Props {
   sortedCharacters: ICharacter[];
-  onSortedByNumber: () => void;
-  onSortedByName: () => void;
-  isLoading: string;
-  rulesSortCharacters: SortType;
 }
 
 export const Episodes = ({
@@ -26,8 +22,8 @@ export const Episodes = ({
   sortedCharacters,
   onSortedByNumber,
   onSortedByName,
-  rulesSortCharacters,
-}: Props) =>
+  rulesSortData,
+}: ICharactersProps) =>
   isLoading === "loading" ? (
     <LoaderThumb>
       <Loader />
@@ -40,12 +36,12 @@ export const Episodes = ({
             <TableHeadThumb>
               Character name
               <IconLetterThumb>
-                {rulesSortCharacters === "DESC_NAME" ? (
+                {rulesSortData === "DESC_NAME" ? (
                   <i className="fa-solid fa-arrow-down-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
                 )}
-                {rulesSortCharacters === "ASC_NAME" ? (
+                {rulesSortData === "ASC_NAME" ? (
                   <i className="fa-solid fa-arrow-up-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-up-a-z"></Icon>
@@ -57,12 +53,12 @@ export const Episodes = ({
             <TableHeadThumb>
               Number of episodes
               <IconNumberThumb>
-                {rulesSortCharacters === "DESC_NUM" ? (
+                {rulesSortData === "DESC_NUM" ? (
                   <i className="fa-solid fa-sort-up"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-up"></Icon>
                 )}
-                {rulesSortCharacters === "ASC_NUM" ? (
+                {rulesSortData === "ASC_NUM" ? (
                   <i className="fa-solid fa-sort-down"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-down"></Icon>

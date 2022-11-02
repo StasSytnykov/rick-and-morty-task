@@ -23,6 +23,13 @@ export interface ILocation {
   created: string;
 }
 
+export interface Props {
+  onSortedByNumber: () => void;
+  onSortedByName: () => void;
+  isLoading: string;
+  rulesSortData: SortType;
+}
+
 export type Status = "idle" | "loading" | "success" | "failed";
 
 export interface InitialState {

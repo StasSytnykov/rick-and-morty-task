@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { useAppSelector } from "../hooks/reduxHooks";
 import { Episodes } from "../components/Episodes/Episodes";
 import { getAllCharactersFetch } from "../redux/allCharacters/allCharactersSlice";
 import {
@@ -7,22 +7,24 @@ import {
   allCharactersSelector,
   isLoadingAllCharacters,
 } from "../redux/selectors";
-import { ICharacter, SortType } from "../utils/types";
+import { ICharacter } from "../utils/types";
+import { useSortData } from "../hooks/useSortData";
 
 export const EpisodesPage = () => {
   const [sortedCharacters, setSortedCharacters] = useState<ICharacter[]>([]);
-  const [rulesSortCharacters, setRulesCharacters] =
-    useState<SortType>("DESC_NUM");
 
   const allCharacters = useAppSelector(allCharactersSelector);
   const error = useAppSelector(allCharactersErrorSelector);
   const isLoading = useAppSelector(isLoadingAllCharacters);
-  const dispatch = useAppDispatch();
+
+  const { rulesSortData, onSortedByNumber, onSortedByName } = useSortData(
+    getAllCharactersFetch
+  );
 
   useEffect(() => {
     setSortedCharacters(
       [...allCharacters].sort((a, b) => {
-        switch (rulesSortCharacters) {
+        switch (rulesSortData) {
           case "ASC_NUM":
             return a.episode.length - b.episode.length;
           case "DESC_NAME":
@@ -34,23 +36,7 @@ export const EpisodesPage = () => {
         }
       })
     );
-  }, [allCharacters, rulesSortCharacters]);
-
-  useEffect(() => {
-    dispatch(getAllCharactersFetch());
-  }, [dispatch]);
-
-  const onSortedByNumber = () => {
-    rulesSortCharacters === "DESC_NUM"
-      ? setRulesCharacters("ASC_NUM")
-      : setRulesCharacters("DESC_NUM");
-  };
-
-  const onSortedByName = () => {
-    rulesSortCharacters === "DESC_NAME"
-      ? setRulesCharacters("ASC_NAME")
-      : setRulesCharacters("DESC_NAME");
-  };
+  }, [allCharacters, rulesSortData]);
 
   return error ? (
     <div>{error.message}</div>
@@ -60,7 +46,7 @@ export const EpisodesPage = () => {
       sortedCharacters={sortedCharacters}
       onSortedByNumber={onSortedByNumber}
       onSortedByName={onSortedByName}
-      rulesSortCharacters={rulesSortCharacters}
+      rulesSortData={rulesSortData}
     />
   );
 };
