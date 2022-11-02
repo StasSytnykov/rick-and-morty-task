@@ -21,3 +21,5 @@ export type InitialState = {
   error: null | { message: string };
   page: number;
 };
+
+export type SortType = "DESC" | "ASC" | "";

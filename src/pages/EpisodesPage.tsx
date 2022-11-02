@@ -7,48 +7,59 @@ import {
   allCharactersSelector,
   isLoadingAllCharacters,
 } from "../redux/selectors";
-import { ICharacter } from "../utils/types";
-
-export const FIRST_CHARACTER_BY_NAME = "26 Years Old Morty";
-export const FIRST_CHARACTER_BY_NUMBER_OF_EPISODES = "Rick Sanchez";
+import { ICharacter, SortType } from "../utils/types";
 
 export const EpisodesPage = () => {
   const [sortedCharacters, setSortedCharacters] = useState<ICharacter[]>([]);
+  const [sortByNumber, setSortByNumber] = useState<SortType>("DESC");
+  const [sortByName, setSortByName] = useState<SortType>("");
+
   const allCharacters = useAppSelector(allCharactersSelector);
   const error = useAppSelector(allCharactersErrorSelector);
   const isLoading = useAppSelector(isLoadingAllCharacters);
   const dispatch = useAppDispatch();
 
-  const handleSortedCharactersByNumberOfSeries = () => {
-    setSortedCharacters(
-      [...allCharacters].sort((a, b) => b.episode.length - a.episode.length)
-    );
-    if (sortedCharacters[0].name === FIRST_CHARACTER_BY_NUMBER_OF_EPISODES) {
-      const reversedSortedCharacters = [...sortedCharacters].reverse();
-      setSortedCharacters(reversedSortedCharacters);
+  useEffect(() => {
+    if (sortByNumber === "DESC") {
+      setSortedCharacters(
+        [...allCharacters].sort((a, b) => b.episode.length - a.episode.length)
+      );
     }
-  };
 
-  const handleSortedCharactersByName = () => {
-    setSortedCharacters(
-      [...allCharacters].sort((a, b) => a.name[0].localeCompare(b.name[0]))
-    );
-    if (sortedCharacters[0].name === FIRST_CHARACTER_BY_NAME) {
+    if (sortByNumber === "ASC") {
+      setSortedCharacters(
+        [...allCharacters].sort((a, b) => a.episode.length - b.episode.length)
+      );
+    }
+
+    if (sortByName === "DESC") {
+      setSortedCharacters(
+        [...allCharacters].sort((a, b) => a.name[0].localeCompare(b.name[0]))
+      );
+    }
+
+    if (sortByName === "ASC") {
       setSortedCharacters(
         [...allCharacters].sort((a, b) => b.name[0].localeCompare(a.name[0]))
       );
     }
-  };
-
-  useEffect(() => {
-    setSortedCharacters(
-      [...allCharacters].sort((a, b) => b.episode.length - a.episode.length)
-    );
-  }, [allCharacters]);
+  }, [allCharacters, sortByName, sortByNumber]);
 
   useEffect(() => {
     dispatch(getAllCharactersFetch());
   }, [dispatch]);
+
+  const onSortedByNumber = () => {
+    setSortByName("");
+    sortByNumber === "DESC" ? setSortByNumber("ASC") : setSortByNumber("DESC");
+  };
+
+  const onSortedByName = () => {
+    setSortByNumber("");
+    sortByName && sortByName === "DESC"
+      ? setSortByName("ASC")
+      : setSortByName("DESC");
+  };
 
   return error ? (
     <div>{error.message}</div>
@@ -56,10 +67,10 @@ export const EpisodesPage = () => {
     <Episodes
       isLoading={isLoading}
       sortedCharacters={sortedCharacters}
-      handleSortedCharactersByNumberOfSeries={
-        handleSortedCharactersByNumberOfSeries
-      }
-      handleSortedCharactersByName={handleSortedCharactersByName}
+      onSortedByNumber={onSortedByNumber}
+      onSortedByName={onSortedByName}
+      sortByNumber={sortByNumber}
+      sortByName={sortByName}
     />
   );
 };
