@@ -43,14 +43,12 @@ export const Episodes = ({
             <TableHeadThumb>
               Character name
               <IconLetterThumb>
-                {sortedCharacters.length !== 0 &&
-                sortedCharacters[0].name === FIRST_CHARACTER_BY_NAME ? (
+                {sortedCharacters[0]?.name === FIRST_CHARACTER_BY_NAME ? (
                   <i className="fa-solid fa-arrow-down-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
                 )}
-                {sortedCharacters.length !== 0 &&
-                sortedCharacters[0].name === FIRST_CHARACTER_BY_Z ? (
+                {sortedCharacters[0]?.name === FIRST_CHARACTER_BY_Z ? (
                   <i className="fa-solid fa-arrow-up-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-up-a-z"></Icon>
@@ -62,16 +60,14 @@ export const Episodes = ({
             <TableHeadThumb>
               Number of episodes
               <IconNumberThumb>
-                {sortedCharacters.length !== 0 &&
-                sortedCharacters[0].name ===
-                  FIRST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
+                {sortedCharacters[0]?.name ===
+                FIRST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
                   <i className="fa-solid fa-sort-up"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-up"></Icon>
                 )}
-                {sortedCharacters.length !== 0 &&
-                sortedCharacters[0].name ===
-                  LAST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
+                {sortedCharacters[0]?.name ===
+                LAST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
                   <i className="fa-solid fa-sort-down"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-down"></Icon>
