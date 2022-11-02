@@ -18,8 +18,7 @@ interface Props {
   onSortedByNumber: () => void;
   onSortedByName: () => void;
   isLoading: string;
-  sortByNumber: SortType;
-  sortByName: SortType;
+  rulesSortCharacters: SortType;
 }
 
 export const Episodes = ({
@@ -27,8 +26,7 @@ export const Episodes = ({
   sortedCharacters,
   onSortedByNumber,
   onSortedByName,
-  sortByNumber,
-  sortByName,
+  rulesSortCharacters,
 }: Props) =>
   isLoading === "loading" ? (
     <LoaderThumb>
@@ -42,12 +40,12 @@ export const Episodes = ({
             <TableHeadThumb>
               Character name
               <IconLetterThumb>
-                {sortByName === "DESC" ? (
+                {rulesSortCharacters === "DESC_NAME" ? (
                   <i className="fa-solid fa-arrow-down-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
                 )}
-                {sortByName === "ASC" ? (
+                {rulesSortCharacters === "ASC_NAME" ? (
                   <i className="fa-solid fa-arrow-up-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-up-a-z"></Icon>
@@ -59,12 +57,12 @@ export const Episodes = ({
             <TableHeadThumb>
               Number of episodes
               <IconNumberThumb>
-                {sortByNumber === "DESC" ? (
+                {rulesSortCharacters === "DESC_NUM" ? (
                   <i className="fa-solid fa-sort-up"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-up"></Icon>
                 )}
-                {sortByNumber === "ASC" ? (
+                {rulesSortCharacters === "ASC_NUM" ? (
                   <i className="fa-solid fa-sort-down"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-down"></Icon>
