@@ -1,15 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import charactersOperation from "./charactersOperation";
-// import type { PayloadAction } from "@reduxjs/toolkit";
-// // import { RootState } from "../store";
-import { ICharacter } from "../../utils/types";
-
-type InitialState = {
-  characters: ICharacter[];
-  status: "idle" | "loading" | "success" | "failed";
-  error: null | { message: string };
-  page: number;
-};
+import { InitialState } from "../../utils/types";
 
 const MAX_PAGE = 42;
 

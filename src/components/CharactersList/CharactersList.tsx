@@ -33,7 +33,7 @@ export const CharactersList = ({ characters, onLoadMoreCharacters }: Props) => {
       <CharactersListStyled>
         {characters.map((character: ICharacter) => (
           <CharactersItemStyled key={character.id}>
-            <Link to={`characterId/${character.id}`}>
+            <Link to={`character/id=${character.id}`}>
               <img
                 src={character.image}
                 alt={character.name}

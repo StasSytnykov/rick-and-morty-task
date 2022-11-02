@@ -8,7 +8,18 @@ export interface ICharacter {
   origin: object;
   location: object;
   image: string;
-  episodes: string[];
+  episode: string[];
   url: string;
   created: string;
 }
+
+type Status = "idle" | "loading" | "success" | "failed";
+
+export type InitialState = {
+  characters: ICharacter[];
+  status: Status;
+  error: null | { message: string };
+  page: number;
+};
+
+export type SortType = "DESC_NAME" | "ASC_NAME" | "DESC_NUM" | "ASC_NUM";
