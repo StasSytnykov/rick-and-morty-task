@@ -17,14 +17,17 @@ const TableStyled = styled.table`
 
 const TableThStyled = styled.th`
   padding: 15px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
 `;
 
-const TableTrHeadStyled = styled.tr`
-  background: linear-gradient(45deg, #5f2c82, #49a09d);
-  height: 50px;
+const THeadStyled = styled.thead`
+  background-color: #55608f;
 `;
 
-const TableHeadNumberThumb = styled.div`
+const TableHeadThumb = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,16 +57,17 @@ const TableTrStyled = styled.tr`
 const TableTdStyled = styled.td`
   text-align: center;
   padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
 `;
 
 export {
+  THeadStyled,
   IconLetterThumb,
   Icon,
-  TableHeadNumberThumb,
+  TableHeadThumb,
   IconNumberThumb,
   LoaderThumb,
   TableStyled,
-  TableTrHeadStyled,
   TableTrStyled,
   TableThStyled,
   TableTdStyled,

@@ -1,18 +1,22 @@
 import {
+  THeadStyled,
   LoaderThumb,
   TableStyled,
-  TableTrHeadStyled,
   TableTrStyled,
   TableTdStyled,
   TableThStyled,
   IconNumberThumb,
-  TableHeadNumberThumb,
+  TableHeadThumb,
   Icon,
   IconLetterThumb,
 } from "./Episodes.styled";
 import { Loader } from "../Loader/Loader";
 import { ICharacter } from "../../utils/types";
 import { FIRST_CHARACTER_BY_NUMBER_OF_EPISODES } from "../../pages/EpisodesPage";
+import { FIRST_CHARACTER_BY_NAME } from "../../pages/EpisodesPage";
+
+const FIRST_CHARACTER_BY_Z = "Zarbadar Gloonch";
+const LAST_CHARACTER_BY_NUMBER_OF_EPISODES = "Butter Robot";
 
 interface Props {
   sortedCharacters: ICharacter[];
@@ -26,26 +30,36 @@ export const Episodes = ({
   sortedCharacters,
   handleSortedCharactersByNumberOfSeries,
   handleSortedCharactersByName,
-}: Props) => {
-  return isLoading === "loading" ? (
+}: Props) =>
+  isLoading === "loading" ? (
     <LoaderThumb>
       <Loader />
     </LoaderThumb>
   ) : (
     <TableStyled>
-      <thead>
-        <TableTrHeadStyled>
+      <THeadStyled>
+        <tr>
           <TableThStyled onClick={handleSortedCharactersByName}>
-            <TableHeadNumberThumb>
+            <TableHeadThumb>
               Character name
               <IconLetterThumb>
-                <i className="fa-solid fa-arrow-up-a-z"></i>
-                <i className="fa-solid fa-arrow-down-a-z"></i>
+                {sortedCharacters.length !== 0 &&
+                sortedCharacters[0].name === FIRST_CHARACTER_BY_NAME ? (
+                  <i className="fa-solid fa-arrow-down-a-z"></i>
+                ) : (
+                  <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
+                )}
+                {sortedCharacters.length !== 0 &&
+                sortedCharacters[0].name === FIRST_CHARACTER_BY_Z ? (
+                  <i className="fa-solid fa-arrow-up-a-z"></i>
+                ) : (
+                  <Icon className="fa-solid fa-arrow-up-a-z"></Icon>
+                )}
               </IconLetterThumb>
-            </TableHeadNumberThumb>
+            </TableHeadThumb>
           </TableThStyled>
           <TableThStyled onClick={handleSortedCharactersByNumberOfSeries}>
-            <TableHeadNumberThumb>
+            <TableHeadThumb>
               Number of episodes
               <IconNumberThumb>
                 {sortedCharacters.length !== 0 &&
@@ -56,17 +70,17 @@ export const Episodes = ({
                   <Icon className="fa-solid fa-sort-up"></Icon>
                 )}
                 {sortedCharacters.length !== 0 &&
-                sortedCharacters[0].name !==
-                  FIRST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
+                sortedCharacters[0].name ===
+                  LAST_CHARACTER_BY_NUMBER_OF_EPISODES ? (
                   <i className="fa-solid fa-sort-down"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-down"></Icon>
                 )}
               </IconNumberThumb>
-            </TableHeadNumberThumb>
+            </TableHeadThumb>
           </TableThStyled>
-        </TableTrHeadStyled>
-      </thead>
+        </tr>
+      </THeadStyled>
 
       <tbody>
         {sortedCharacters.map(({ name, id, episode }) => (
@@ -78,4 +92,3 @@ export const Episodes = ({
       </tbody>
     </TableStyled>
   );
-};
