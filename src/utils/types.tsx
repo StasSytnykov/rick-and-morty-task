@@ -12,3 +12,12 @@ export interface ICharacter {
   url: string;
   created: string;
 }
+
+type Status = "idle" | "loading" | "success" | "failed";
+
+export type InitialState = {
+  characters: ICharacter[];
+  status: Status;
+  error: null | { message: string };
+  page: number;
+};

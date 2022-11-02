@@ -1,14 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ICharacter } from "../../utils/types";
+import { InitialState } from "../../utils/types";
 
-type InitialState = {
-  allCharacters: ICharacter[];
-  status: "idle" | "loading" | "success" | "failed";
-  error: null | { message: string };
-};
+type InitialAllCharactersState = Omit<InitialState, "page">;
 
-const initialState: InitialState = {
-  allCharacters: [],
+const initialState: InitialAllCharactersState = {
+  characters: [],
   status: "idle",
   error: null,
 };
@@ -22,7 +18,7 @@ export const allCharactersSlice = createSlice({
     },
     getAllCharactersSuccess: (state, action) => {
       state.status = "success";
-      state.allCharacters = action.payload;
+      state.characters = action.payload;
     },
     getAllCharactersFailure: (state, action) => {
       state.status = "failed";

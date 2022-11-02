@@ -5,7 +5,7 @@ const charactersPageSelector = (state: RootState) => state.characters.page;
 const charactersErrorSelector = (state: RootState) => state.characters.error;
 
 const allCharactersSelector = (state: RootState) =>
-  state.allCharacters.allCharacters;
+  state.allCharacters.characters;
 const isLoadingAllCharacters = (state: RootState) => state.allCharacters.status;
 const allCharactersErrorSelector = (state: RootState) =>
   state.allCharacters.error;
