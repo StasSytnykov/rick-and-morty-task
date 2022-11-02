@@ -22,4 +22,4 @@ export type InitialState = {
   page: number;
 };
 
-export type SortType = "DESC_NAME" | "ASC_NAME" | "DESC_NUM" | "ASC_NUM" | "";
+export type SortType = "DESC_NAME" | "ASC_NAME" | "DESC_NUM" | "ASC_NUM";
