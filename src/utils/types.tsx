@@ -13,13 +13,23 @@ export interface ICharacter {
   created: string;
 }
 
-type Status = "idle" | "loading" | "success" | "failed";
+export interface ILocation {
+  id: number;
+  name: string;
+  type: string;
+  dimension: string;
+  residents: string[];
+  url: string;
+  created: string;
+}
 
-export type InitialState = {
+export type Status = "idle" | "loading" | "success" | "failed";
+
+export interface InitialState {
   characters: ICharacter[];
   status: Status;
   error: null | { message: string };
   page: number;
-};
+}
 
 export type SortType = "DESC" | "ASC" | "";
