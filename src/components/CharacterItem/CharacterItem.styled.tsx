@@ -15,7 +15,7 @@ const CharacterItemStyled = styled.div`
 `;
 
 const CharacterItemTextThumb = styled.div`
-  margin-left: 20px;
+  margin: 30px 0 0 20px;
 `;
 
 const CharacterItemTitle = styled.h2`
