@@ -11,8 +11,8 @@ import { ICharacter, SortType } from "../utils/types";
 
 export const EpisodesPage = () => {
   const [sortedCharacters, setSortedCharacters] = useState<ICharacter[]>([]);
-  const [sortByNumber, setSortByNumber] = useState<SortType>("DESC");
-  const [sortByName, setSortByName] = useState<SortType>("");
+  const [rulesSortCharacters, setRulesCharacters] =
+    useState<SortType>("DESC_NUM");
 
   const allCharacters = useAppSelector(allCharactersSelector);
   const error = useAppSelector(allCharactersErrorSelector);
@@ -20,45 +20,36 @@ export const EpisodesPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (sortByNumber === "DESC") {
-      setSortedCharacters(
-        [...allCharacters].sort((a, b) => b.episode.length - a.episode.length)
-      );
-    }
-
-    if (sortByNumber === "ASC") {
-      setSortedCharacters(
-        [...allCharacters].sort((a, b) => a.episode.length - b.episode.length)
-      );
-    }
-
-    if (sortByName === "DESC") {
-      setSortedCharacters(
-        [...allCharacters].sort((a, b) => a.name[0].localeCompare(b.name[0]))
-      );
-    }
-
-    if (sortByName === "ASC") {
-      setSortedCharacters(
-        [...allCharacters].sort((a, b) => b.name[0].localeCompare(a.name[0]))
-      );
-    }
-  }, [allCharacters, sortByName, sortByNumber]);
+    setSortedCharacters(
+      [...allCharacters].sort((a, b) => {
+        switch (rulesSortCharacters) {
+          case "ASC_NUM":
+            return a.episode.length - b.episode.length;
+          case "DESC_NAME":
+            return a.name[0].localeCompare(b.name[0]);
+          case "ASC_NAME":
+            return b.name[0].localeCompare(a.name[0]);
+          default:
+            return b.episode.length - a.episode.length;
+        }
+      })
+    );
+  }, [allCharacters, rulesSortCharacters]);
 
   useEffect(() => {
     dispatch(getAllCharactersFetch());
   }, [dispatch]);
 
   const onSortedByNumber = () => {
-    setSortByName("");
-    sortByNumber === "DESC" ? setSortByNumber("ASC") : setSortByNumber("DESC");
+    rulesSortCharacters === "DESC_NUM"
+      ? setRulesCharacters("ASC_NUM")
+      : setRulesCharacters("DESC_NUM");
   };
 
   const onSortedByName = () => {
-    setSortByNumber("");
-    sortByName && sortByName === "DESC"
-      ? setSortByName("ASC")
-      : setSortByName("DESC");
+    rulesSortCharacters === "DESC_NAME"
+      ? setRulesCharacters("ASC_NAME")
+      : setRulesCharacters("DESC_NAME");
   };
 
   return error ? (
@@ -69,8 +60,7 @@ export const EpisodesPage = () => {
       sortedCharacters={sortedCharacters}
       onSortedByNumber={onSortedByNumber}
       onSortedByName={onSortedByName}
-      sortByNumber={sortByNumber}
-      sortByName={sortByName}
+      rulesSortCharacters={rulesSortCharacters}
     />
   );
 };
