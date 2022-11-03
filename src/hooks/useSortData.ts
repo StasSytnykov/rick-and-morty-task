@@ -1,28 +1,33 @@
 import { useEffect, useState } from "react";
-import { SortType } from "../utils/types";
-import { useAppDispatch } from "./reduxHooks";
-import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
+import { FetchedObject } from "../utils/types";
 
-export const useSortData = (getFetch: ActionCreatorWithoutPayload<string>) => {
-  const [rulesSortData, setRulesData] = useState<SortType>("DESC_NUM");
-
-  const dispatch = useAppDispatch();
+export const useSortData = (
+  rulesSortData: string,
+  arrayType: string,
+  fetchedData: FetchedObject[]
+) => {
+  const [sortedFetchedData, setSortedFetchedData] = useState<FetchedObject[]>(
+    []
+  );
 
   useEffect(() => {
-    dispatch(getFetch());
-  }, [dispatch, getFetch]);
+    setSortedFetchedData(
+      [...fetchedData].sort(
+        (a: Record<string, any>, b: Record<string, any>) => {
+          switch (rulesSortData) {
+            case "ASC_NUM":
+              return a[arrayType].length - b[arrayType].length;
+            case "DESC_NAME":
+              return a.name[0].localeCompare(b.name[0]);
+            case "ASC_NAME":
+              return b.name[0].localeCompare(a.name[0]);
+            default:
+              return b[arrayType].length - a[arrayType].length;
+          }
+        }
+      )
+    );
+  }, [fetchedData, arrayType, rulesSortData]);
 
-  const onSortedByNumber = () => {
-    rulesSortData === "DESC_NUM"
-      ? setRulesData("ASC_NUM")
-      : setRulesData("DESC_NUM");
-  };
-
-  const onSortedByName = () => {
-    rulesSortData === "DESC_NAME"
-      ? setRulesData("ASC_NAME")
-      : setRulesData("DESC_NAME");
-  };
-
-  return { rulesSortData, onSortedByNumber, onSortedByName };
+  return { sortedFetchedData };
 };

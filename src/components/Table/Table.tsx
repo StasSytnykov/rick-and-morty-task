@@ -1,29 +1,26 @@
 import {
-  THeadStyled,
-  LoaderThumb,
-  TableStyled,
-  TableTrStyled,
-  TableTdStyled,
-  TableThStyled,
-  IconNumberThumb,
-  TableHeadThumb,
   Icon,
   IconLetterThumb,
-} from "./Episodes.styled";
+  IconNumberThumb,
+  LoaderThumb,
+  TableHeadThumb,
+  TableStyled,
+  TableTdStyled,
+  TableThStyled,
+  TableTrStyled,
+  THeadStyled,
+} from "./Table.styled";
 import { Loader } from "../Loader/Loader";
-import { ICharacter, Props } from "../../utils/types";
+import { Props } from "../../utils/types";
 
-interface ICharactersProps extends Props {
-  sortedCharacters: ICharacter[];
-}
-
-export const Episodes = ({
+export const Table = ({
   isLoading,
-  sortedCharacters,
+  sortedData,
   onSortedByNumber,
   onSortedByName,
   rulesSortData,
-}: ICharactersProps) =>
+  arrayType,
+}: Props) =>
   isLoading === "loading" ? (
     <LoaderThumb>
       <Loader />
@@ -70,10 +67,10 @@ export const Episodes = ({
       </THeadStyled>
 
       <tbody>
-        {sortedCharacters.map(({ name, id, episode }) => (
-          <TableTrStyled key={id}>
-            <TableTdStyled>{name}</TableTdStyled>
-            <TableTdStyled>{episode.length}</TableTdStyled>
+        {sortedData.map((item) => (
+          <TableTrStyled key={item.id}>
+            <TableTdStyled>{item.name}</TableTdStyled>
+            <TableTdStyled>{item[arrayType].length}</TableTdStyled>
           </TableTrStyled>
         ))}
       </tbody>

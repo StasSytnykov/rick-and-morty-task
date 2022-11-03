@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ILocation, Status } from "../../utils/types";
+import { FetchedObject, Status } from "../../utils/types";
 
 interface IInitialState {
-  location: ILocation[];
+  location: FetchedObject[];
   status: Status;
   error: null | { message: string };
 }

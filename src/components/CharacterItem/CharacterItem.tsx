@@ -5,10 +5,10 @@ import {
   CharacterItemText,
   CharacterItemTextStatus,
 } from "./CharacterItem.styled";
-import { ICharacter } from "../../utils/types";
+import { FetchedObject } from "../../utils/types";
 
 interface Props {
-  selectedCharacter: ICharacter;
+  selectedCharacter: FetchedObject;
 }
 
 export const CharacterItem = ({ selectedCharacter }: Props) => (
