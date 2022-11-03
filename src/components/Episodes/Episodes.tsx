@@ -41,7 +41,10 @@ export const Episodes = ({
               Character name
               <IconLetterThumb>
                 {rulesSortCharacters === "DESC_NAME" ? (
-                  <i className="fa-solid fa-arrow-down-a-z"></i>
+                  <i
+                    data-testid="arrow"
+                    className="fa-solid fa-arrow-down-a-z"
+                  ></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
                 )}
