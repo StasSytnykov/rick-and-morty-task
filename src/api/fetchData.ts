@@ -13,7 +13,9 @@ const fetchAllCharacters = async () => {
   for (let i = 1; i <= response.data.info.count; i += 1) {
     charactersIdArr.push(i);
   }
-  const { data } = await axios.get(`character/${charactersIdArr.toString()}`);
+  const { data } = await axios.get(
+    `${BASE_URL}character/${charactersIdArr.toString()}`
+  );
   return data;
 };
 
