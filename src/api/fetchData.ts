@@ -17,4 +17,16 @@ const fetchAllCharacters = async () => {
   return data;
 };
 
-export { fetchCharacters, fetchAllCharacters };
+const fetchLocation = async () => {
+  const response = await axios.get("location");
+  const locationId = [];
+
+  for (let i = 1; i <= response.data.info.count; i += 1) {
+    locationId.push(i);
+  }
+
+  const { data } = await axios.get(`location/${locationId.toString()}`);
+  return data;
+};
+
+export { fetchCharacters, fetchAllCharacters, fetchLocation };

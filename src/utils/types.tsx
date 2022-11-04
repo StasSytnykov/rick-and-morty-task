@@ -1,4 +1,4 @@
-export interface ICharacter {
+export interface FetchedObject {
   id: number;
   name: string;
   status: string;
@@ -9,17 +9,30 @@ export interface ICharacter {
   location: object;
   image: string;
   episode: string[];
+  residents: string[];
+  dimension: string;
   url: string;
   created: string;
 }
 
-type Status = "idle" | "loading" | "success" | "failed";
+type ArrayType = "episode" | "residents";
 
-export type InitialState = {
-  characters: ICharacter[];
+export interface Props {
+  sortedData: FetchedObject[];
+  onSortedByNumber: () => void;
+  onSortedByName: () => void;
+  isLoading: string;
+  rulesSortData: SortType;
+  arrayType: ArrayType;
+}
+
+export type Status = "idle" | "loading" | "success" | "failed";
+
+export interface InitialState {
+  characters: FetchedObject[];
   status: Status;
   error: null | { message: string };
   page: number;
-};
+}
 
 export type SortType = "DESC_NAME" | "ASC_NAME" | "DESC_NUM" | "ASC_NUM";

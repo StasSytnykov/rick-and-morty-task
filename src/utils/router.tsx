@@ -4,6 +4,7 @@ import { HomePage } from "../pages/HomePage";
 import { CharacterPage } from "../pages/CharacterPage";
 import { StatisticsPage } from "../pages/StatisticsPage";
 import { EpisodesPage } from "../pages/EpisodesPage";
+import { LocationPage } from "../pages/LocationPage";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,10 @@ export const router = createBrowserRouter([
       {
         path: "statistics",
         element: <StatisticsPage />,
-        children: [{ path: "episodes", element: <EpisodesPage /> }],
+        children: [
+          { path: "episodes", element: <EpisodesPage /> },
+          { path: "location", element: <LocationPage /> },
+        ],
       },
     ],
   },
