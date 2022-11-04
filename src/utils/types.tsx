@@ -3,16 +3,16 @@ export interface FetchedObject {
   name: string;
   status: string;
   species: string;
-  type: string;
+  type?: string;
   gender: string;
-  origin: object;
-  location: object;
+  origin?: object;
+  location?: object;
   image: string;
   episode: string[];
   residents: string[];
-  dimension: string;
-  url: string;
-  created: string;
+  dimension?: string;
+  url?: string;
+  created?: string;
 }
 
 type ArrayType = "episode" | "residents";

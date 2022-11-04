@@ -34,7 +34,10 @@ export const Table = ({
               Character name
               <IconLetterThumb>
                 {rulesSortData === "DESC_NAME" ? (
-                  <i className="fa-solid fa-arrow-down-a-z"></i>
+                  <i
+                    data-testid={"arrow"}
+                    className="fa-solid fa-arrow-down-a-z"
+                  ></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
                 )}

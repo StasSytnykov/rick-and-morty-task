@@ -1,31 +1,35 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://rickandmortyapi.com/api/";
+const BASE_URL = "https://rickandmortyapi.com/api/";
 
 const fetchCharacters = async (page: number) => {
-  const { data } = await axios.get(`character/?page=${page}`);
+  const { data } = await axios.get(`${BASE_URL}character/?page=${page}`);
   return data.results;
 };
 
 const fetchAllCharacters = async () => {
-  const response = await axios.get("character");
+  const response = await axios.get(`${BASE_URL}character`);
   const charactersIdArr = [];
   for (let i = 1; i <= response.data.info.count; i += 1) {
     charactersIdArr.push(i);
   }
-  const { data } = await axios.get(`character/${charactersIdArr.toString()}`);
+  const { data } = await axios.get(
+    `${BASE_URL}character/${charactersIdArr.toString()}`
+  );
   return data;
 };
 
 const fetchLocation = async () => {
-  const response = await axios.get("location");
+  const response = await axios.get(`${BASE_URL}location`);
   const locationId = [];
 
   for (let i = 1; i <= response.data.info.count; i += 1) {
     locationId.push(i);
   }
 
-  const { data } = await axios.get(`location/${locationId.toString()}`);
+  const { data } = await axios.get(
+    `${BASE_URL}location/${locationId.toString()}`
+  );
   return data;
 };
 
