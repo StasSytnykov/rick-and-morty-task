@@ -16,14 +16,10 @@ describe("CharactersList", () => {
               name: "Rick Sanchez",
               status: "alive",
               species: "human",
-              type: "unknown",
-              gender: "unknown",
-              origin: {},
-              location: {},
-              image: "",
-              episode: ["", ""],
-              url: "",
-              created: "",
+              gender: "male",
+              image: "str",
+              episode: ["m", "a"],
+              residents: ["a", "s"],
             },
           ]}
         />

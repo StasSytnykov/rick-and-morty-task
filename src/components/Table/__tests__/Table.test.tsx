@@ -1,17 +1,18 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Episodes } from "../Episodes";
+import { Table } from "../Table";
 
 const mockFn = jest.fn();
 const onClickTableHead = jest.fn();
 
 describe("CharactersList", () => {
   render(
-    <Episodes
+    <Table
       isLoading={"success"}
       onSortedByNumber={mockFn}
       onSortedByName={onClickTableHead}
-      sortedCharacters={[]}
-      rulesSortCharacters="DESC_NAME"
+      sortedData={[]}
+      rulesSortData="DESC_NAME"
+      arrayType={"episode"}
     />
   );
 
@@ -23,12 +24,13 @@ describe("CharactersList", () => {
 
   test("should call onSortedByName func", () => {
     render(
-      <Episodes
+      <Table
         isLoading={"success"}
         onSortedByNumber={mockFn}
         onSortedByName={onClickTableHead}
-        sortedCharacters={[]}
-        rulesSortCharacters="DESC_NAME"
+        sortedData={[]}
+        rulesSortData="DESC_NAME"
+        arrayType={"episode"}
       />
     );
     const TableHeadByName = screen.getByText("Character name");
@@ -38,12 +40,13 @@ describe("CharactersList", () => {
 
   test("should change styles when I click on table head", () => {
     render(
-      <Episodes
+      <Table
         isLoading={"success"}
         onSortedByNumber={mockFn}
         onSortedByName={onClickTableHead}
-        sortedCharacters={[]}
-        rulesSortCharacters="DESC_NAME"
+        sortedData={[]}
+        rulesSortData="DESC_NAME"
+        arrayType={"episode"}
       />
     );
     const TableHeadByName = screen.getByTestId("arrow");

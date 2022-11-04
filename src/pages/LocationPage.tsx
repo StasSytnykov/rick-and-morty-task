@@ -1,27 +1,26 @@
 import { useAppSelector } from "../hooks/reduxHooks";
-import { getAllCharactersFetch } from "../redux/allCharacters/allCharactersSlice";
 import {
-  allCharactersErrorSelector,
-  allCharactersSelector,
-  isLoadingAllCharacters,
+  locationSelector,
+  isLoadingLocation,
+  locationErrorSelector,
 } from "../redux/selectors";
+import { getLocationFetch } from "../redux/location/locationSlice";
 import { useHandleSortData } from "../hooks/useHandleSortData";
 import { Table } from "../components/Table/Table";
 import { useSortData } from "../hooks/useSortData";
 
-export const EpisodesPage = () => {
-  const allCharacters = useAppSelector(allCharactersSelector);
-  const error = useAppSelector(allCharactersErrorSelector);
-  const isLoading = useAppSelector(isLoadingAllCharacters);
+export const LocationPage = () => {
+  const locations = useAppSelector(locationSelector);
+  const isLoading = useAppSelector(isLoadingLocation);
+  const error = useAppSelector(locationErrorSelector);
 
-  const { rulesSortData, onSortedByNumber, onSortedByName } = useHandleSortData(
-    getAllCharactersFetch
-  );
+  const { rulesSortData, onSortedByNumber, onSortedByName } =
+    useHandleSortData(getLocationFetch);
 
   const { sortedFetchedData } = useSortData(
     rulesSortData,
-    "episode",
-    allCharacters
+    "residents",
+    locations
   );
 
   return error ? (
@@ -33,7 +32,7 @@ export const EpisodesPage = () => {
       onSortedByNumber={onSortedByNumber}
       onSortedByName={onSortedByName}
       rulesSortData={rulesSortData}
-      arrayType={"episode"}
+      arrayType={"residents"}
     />
   );
 };

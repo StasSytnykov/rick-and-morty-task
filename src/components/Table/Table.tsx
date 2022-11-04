@@ -1,32 +1,25 @@
 import {
-  THeadStyled,
-  LoaderThumb,
-  TableStyled,
-  TableTrStyled,
-  TableTdStyled,
-  TableThStyled,
-  IconNumberThumb,
-  TableHeadThumb,
   Icon,
   IconLetterThumb,
-} from "./Episodes.styled";
+  IconNumberThumb,
+  LoaderThumb,
+  TableHeadThumb,
+  TableStyled,
+  TableTdStyled,
+  TableThStyled,
+  TableTrStyled,
+  THeadStyled,
+} from "./Table.styled";
 import { Loader } from "../Loader/Loader";
-import { ICharacter, SortType } from "../../utils/types";
+import { Props } from "../../utils/types";
 
-interface Props {
-  sortedCharacters: ICharacter[];
-  onSortedByNumber: () => void;
-  onSortedByName: () => void;
-  isLoading: string;
-  rulesSortCharacters: SortType;
-}
-
-export const Episodes = ({
+export const Table = ({
   isLoading,
-  sortedCharacters,
+  sortedData,
   onSortedByNumber,
   onSortedByName,
-  rulesSortCharacters,
+  rulesSortData,
+  arrayType,
 }: Props) =>
   isLoading === "loading" ? (
     <LoaderThumb>
@@ -40,15 +33,15 @@ export const Episodes = ({
             <TableHeadThumb>
               Character name
               <IconLetterThumb>
-                {rulesSortCharacters === "DESC_NAME" ? (
+                {rulesSortData === "DESC_NAME" ? (
                   <i
-                    data-testid="arrow"
+                    data-testid={"arrow"}
                     className="fa-solid fa-arrow-down-a-z"
                   ></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
                 )}
-                {rulesSortCharacters === "ASC_NAME" ? (
+                {rulesSortData === "ASC_NAME" ? (
                   <i className="fa-solid fa-arrow-up-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-up-a-z"></Icon>
@@ -60,12 +53,12 @@ export const Episodes = ({
             <TableHeadThumb>
               Number of episodes
               <IconNumberThumb>
-                {rulesSortCharacters === "DESC_NUM" ? (
+                {rulesSortData === "DESC_NUM" ? (
                   <i className="fa-solid fa-sort-up"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-up"></Icon>
                 )}
-                {rulesSortCharacters === "ASC_NUM" ? (
+                {rulesSortData === "ASC_NUM" ? (
                   <i className="fa-solid fa-sort-down"></i>
                 ) : (
                   <Icon className="fa-solid fa-sort-down"></Icon>
@@ -77,10 +70,10 @@ export const Episodes = ({
       </THeadStyled>
 
       <tbody>
-        {sortedCharacters.map(({ name, id, episode }) => (
-          <TableTrStyled key={id}>
-            <TableTdStyled>{name}</TableTdStyled>
-            <TableTdStyled>{episode.length}</TableTdStyled>
+        {sortedData.map((item) => (
+          <TableTrStyled key={item.id}>
+            <TableTdStyled>{item.name}</TableTdStyled>
+            <TableTdStyled>{item[arrayType].length}</TableTdStyled>
           </TableTrStyled>
         ))}
       </tbody>

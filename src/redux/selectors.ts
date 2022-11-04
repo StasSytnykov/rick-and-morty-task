@@ -10,6 +10,10 @@ const isLoadingAllCharacters = (state: RootState) => state.allCharacters.status;
 const allCharactersErrorSelector = (state: RootState) =>
   state.allCharacters.error;
 
+const locationSelector = (state: RootState) => state.location.location;
+const isLoadingLocation = (state: RootState) => state.location.status;
+const locationErrorSelector = (state: RootState) => state.location.error;
+
 export {
   charactersSelector,
   charactersPageSelector,
@@ -17,4 +21,7 @@ export {
   allCharactersSelector,
   isLoadingAllCharacters,
   allCharactersErrorSelector,
+  locationSelector,
+  isLoadingLocation,
+  locationErrorSelector,
 };
