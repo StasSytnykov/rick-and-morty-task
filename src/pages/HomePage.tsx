@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import {
   charactersSelector,
-  pageSelector,
-  errorSelector,
-} from "../redux/characters/charactersSelector";
+  charactersPageSelector,
+  charactersErrorSelector,
+} from "../redux/selectors";
 import {
   getCharactersFetch,
   getPage,
@@ -13,8 +13,8 @@ import { CharactersList } from "../components/CharactersList/CharactersList";
 
 export const HomePage = () => {
   const characters = useAppSelector(charactersSelector);
-  const page = useAppSelector(pageSelector);
-  const error = useAppSelector(errorSelector);
+  const page = useAppSelector(charactersPageSelector);
+  const error = useAppSelector(charactersErrorSelector);
   const dispatch = useAppDispatch();
 
   const onLoadMoreCharacters = () => {

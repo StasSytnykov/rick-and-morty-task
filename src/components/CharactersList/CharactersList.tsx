@@ -1,7 +1,7 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
-import { ICharacter } from "../../utils/types";
+import { FetchedObject } from "../../utils/types";
 import {
   CharactersLoaderThumb,
   CharactersListStyled,
@@ -11,7 +11,7 @@ import {
 } from "./CharactersList.module";
 
 interface Props {
-  characters: ICharacter[];
+  characters: FetchedObject[];
   onLoadMoreCharacters: () => void;
 }
 
@@ -31,10 +31,15 @@ export const CharactersList = ({ characters, onLoadMoreCharacters }: Props) => {
       endMessage={<CharactersEndedText>Characters ended</CharactersEndedText>}
     >
       <CharactersListStyled>
-        {characters.map((character: ICharacter) => (
+        {characters.map((character: FetchedObject) => (
           <CharactersItemStyled key={character.id}>
-            <Link to={`characterId/${character.id}`}>
-              <img src={character.image} alt={character.name} />
+            <Link to={`character/id=${character.id}`}>
+              <img
+                src={character.image}
+                alt={character.name}
+                width={300}
+                height={300}
+              />
               <CharactersNameStyled>{character.name}</CharactersNameStyled>
             </Link>
           </CharactersItemStyled>

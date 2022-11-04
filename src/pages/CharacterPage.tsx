@@ -1,6 +1,6 @@
 import { CharacterItem } from "../components/CharacterItem/CharacterItem";
 import { useAppSelector } from "../hooks/reduxHooks";
-import { charactersSelector } from "../redux/characters/charactersSelector";
+import { charactersSelector } from "../redux/selectors";
 import { useParams } from "react-router-dom";
 
 export const CharacterPage = () => {

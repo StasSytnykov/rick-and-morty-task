@@ -1,7 +1,7 @@
 import { call, delay, put, takeEvery } from "redux-saga/effects";
 import { AnyAction } from "@reduxjs/toolkit";
 import { getCharactersSuccess, getCharactersFailure } from "./charactersSlice";
-import fetchCharacters from "../../api/сharactersApi";
+import { fetchCharacters } from "../../api/fetchData";
 
 function* workGetCharactersFetch({ payload }: AnyAction): Generator {
   try {

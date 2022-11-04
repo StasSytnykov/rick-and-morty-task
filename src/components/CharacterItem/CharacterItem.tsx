@@ -5,15 +5,20 @@ import {
   CharacterItemText,
   CharacterItemTextStatus,
 } from "./CharacterItem.styled";
-import { ICharacter } from "../../utils/types";
+import { FetchedObject } from "../../utils/types";
 
 interface Props {
-  selectedCharacter: ICharacter;
+  selectedCharacter: FetchedObject;
 }
 
 export const CharacterItem = ({ selectedCharacter }: Props) => (
   <CharacterItemStyled>
-    <img src={selectedCharacter.image} alt={"character"} />
+    <img
+      src={selectedCharacter.image}
+      alt={"character"}
+      width={300}
+      height={300}
+    />
 
     <CharacterItemTextThumb>
       <CharacterItemTitle>{selectedCharacter.name}</CharacterItemTitle>
