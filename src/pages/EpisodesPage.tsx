@@ -43,14 +43,16 @@ const initialState: InitialAllCharactersState = {
 const reducer = (state: InitialAllCharactersState, action: Action) => {
   switch (action.type) {
     case "getAllCharactersFetch":
-      return { loadingStatus: "loading" };
+      return { ...state, loadingStatus: "loading" };
     case "getAllCharactersSuccess":
       return {
         loadingStatus: "success",
         characters: action.results,
+        error: null,
       };
     case "getAllCharactersFailure":
       return {
+        ...state,
         loadingStatus: "failed",
         error: action.error,
       };
