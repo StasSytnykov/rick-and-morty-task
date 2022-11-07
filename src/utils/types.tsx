@@ -15,7 +15,7 @@ export interface FetchedObject {
   created?: string;
 }
 
-type ArrayType = "episode" | "residents";
+export type ArrayType = "episode" | "residents";
 
 export interface Props {
   sortedData: FetchedObject[];
@@ -30,7 +30,7 @@ export type Status = "idle" | "loading" | "success" | "failed";
 
 export interface InitialState {
   characters: FetchedObject[];
-  status: Status;
+  loadingStatus: string;
   error: null | { message: string };
   page: number;
 }

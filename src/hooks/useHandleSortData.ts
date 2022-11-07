@@ -1,18 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SortType } from "../utils/types";
-import { useAppDispatch } from "./reduxHooks";
-import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 
-export const useHandleSortData = (
-  getFetch: ActionCreatorWithoutPayload<string>
-) => {
+export const useHandleSortData = () => {
   const [rulesSortData, setRulesData] = useState<SortType>("DESC_NUM");
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getFetch());
-  }, [dispatch, getFetch]);
 
   const onSortedByNumber = () => {
     rulesSortData === "DESC_NUM"
