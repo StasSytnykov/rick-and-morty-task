@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { EpisodesContext } from "../../pages/EpisodesPage";
+import { LocationsContext } from "../../pages/LocationPage";
 import {
   Icon,
   IconLetterThumb,
@@ -11,17 +14,23 @@ import {
   THeadStyled,
 } from "./Table.styled";
 import { Loader } from "../Loader/Loader";
-import { Props } from "../../utils/types";
 
-export const Table = ({
-  isLoading,
-  sortedData,
-  onSortedByNumber,
-  onSortedByName,
-  rulesSortData,
-  arrayType,
-}: Props) =>
-  isLoading === "loading" ? (
+interface Props {
+  contextType: string;
+}
+
+export const Table = ({ contextType }: Props) => {
+  const {
+    loadingStatus,
+    sortedFetchedData,
+    onSortedByNumber,
+    onSortedByName,
+    rulesSortData,
+    arrayType,
+  } = useContext(
+    contextType === "episode" ? EpisodesContext : LocationsContext
+  );
+  return loadingStatus === "loading" ? (
     <LoaderThumb>
       <Loader />
     </LoaderThumb>
@@ -32,12 +41,9 @@ export const Table = ({
           <TableThStyled onClick={onSortedByName}>
             <TableHeadThumb>
               Character name
-              <IconLetterThumb>
+              <IconLetterThumb data-testid={"arrow"}>
                 {rulesSortData === "DESC_NAME" ? (
-                  <i
-                    data-testid={"arrow"}
-                    className="fa-solid fa-arrow-down-a-z"
-                  ></i>
+                  <i className="fa-solid fa-arrow-down-a-z"></i>
                 ) : (
                   <Icon className="fa-solid fa-arrow-down-a-z"></Icon>
                 )}
@@ -70,7 +76,7 @@ export const Table = ({
       </THeadStyled>
 
       <tbody>
-        {sortedData.map((item) => (
+        {sortedFetchedData.map((item) => (
           <TableTrStyled key={item.id}>
             <TableTdStyled>{item.name}</TableTdStyled>
             <TableTdStyled>{item[arrayType].length}</TableTdStyled>
@@ -79,3 +85,4 @@ export const Table = ({
       </tbody>
     </TableStyled>
   );
+};

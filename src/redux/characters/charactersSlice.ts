@@ -5,7 +5,8 @@ const MAX_PAGE = 42;
 
 const initialState: InitialState = {
   characters: [],
-  status: "idle",
+  locations: [],
+  loadingStatus: "idle",
   error: null,
   page: 2,
 };
@@ -20,17 +21,17 @@ export const charactersSlice = createSlice({
       }
     },
     getCharactersFetch: (state, payload) => {
-      state.status = "loading";
+      state.loadingStatus = "loading";
     },
     getCharactersSuccess: (state, action) => {
-      state.status = "success";
+      state.loadingStatus = "success";
 
       state.characters.length > 0
         ? (state.characters = state.characters.concat(action.payload))
         : (state.characters = action.payload);
     },
     getCharactersFailure: (state, action) => {
-      state.status = "failed";
+      state.loadingStatus = "failed";
       state.error = action.payload;
     },
   },
