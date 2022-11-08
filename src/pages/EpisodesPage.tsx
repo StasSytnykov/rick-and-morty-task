@@ -1,38 +1,16 @@
 import { useHandleSortData } from "../hooks/useHandleSortData";
 import { Table } from "../components/Table/Table";
 import { useSortData } from "../hooks/useSortData";
-import React, { useEffect, useState, createContext, useReducer } from "react";
-import { ArrayType, FetchedObject, SortType, Status } from "../utils/types";
+import React, { useEffect, createContext, useReducer } from "react";
+import { InitialAllCharactersState, IContext } from "../utils/types";
 import { fetchAllCharacters } from "../api/fetchData";
+import { fetchReducer } from "../context/episodesReducer";
+import { defaultContext } from "../context/defautlContext";
 
-interface IContext {
-  sortedFetchedData: FetchedObject[];
-  loadingStatus: Status;
-  onSortedByNumber: () => void;
-  onSortedByName: () => void;
-  rulesSortData: SortType;
-  arrayType: ArrayType;
-}
-
-export const EpisodesContext = createContext<IContext>({
+export const EpisodesContext = createContext({
   arrayType: "episode",
-  loadingStatus: "idle",
-  onSortedByName(): void {},
-  onSortedByNumber(): void {},
-  rulesSortData: "DESC_NUM",
-  sortedFetchedData: [],
-});
-
-interface InitialAllCharactersState {
-  characters: FetchedObject[];
-  loadingStatus: Status;
-  error: null | { message: string };
-}
-
-type Action =
-  | { type: "getAllCharactersFetch" }
-  | { type: "getAllCharactersSuccess"; results: FetchedObject[] }
-  | { type: "getAllCharactersFailure"; error: null | { message: string } };
+  ...defaultContext,
+} as IContext);
 
 const initialState: InitialAllCharactersState = {
   characters: [],
@@ -40,48 +18,24 @@ const initialState: InitialAllCharactersState = {
   loadingStatus: "idle",
 };
 
-const reducer = (state: InitialAllCharactersState, action: Action) => {
-  switch (action.type) {
-    case "getAllCharactersFetch":
-      return { ...state, loadingStatus: "loading" };
-    case "getAllCharactersSuccess":
-      return {
-        loadingStatus: "success",
-        characters: action.results,
-        error: null,
-      };
-    case "getAllCharactersFailure":
-      return {
-        ...state,
-        loadingStatus: "failed",
-        error: action.error,
-      };
-    default:
-      return state;
-  }
-};
-
 export const EpisodesPage = () => {
-  const [state, dispatch] = useReducer<React.Reducer<any, any>>(
-    reducer,
-    initialState
-  );
-  console.log(state);
-  console.log(dispatch);
-
-  const [allCharacters, setAllCharacters] = useState<FetchedObject[]>([]);
-  const [error, setError] = useState<null | { message: string }>(null);
-  const [loadingStatus, setLoadingStatus] = useState<Status>("idle");
+  const [{ characters, error, loadingStatus }, dispatch] = useReducer<
+    React.Reducer<any, any>
+  >(fetchReducer, initialState);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoadingStatus("loading");
+      dispatch({ type: "GET_ALL_CHARACTERS_FETCH" });
       const fetchedAllCharacters = await fetchAllCharacters();
-      setAllCharacters(fetchedAllCharacters);
-      setLoadingStatus("success");
+      dispatch({
+        type: "GET_ALL_CHARACTERS_SUCCESS",
+        characters: [...fetchedAllCharacters],
+      });
     };
 
-    fetchData().catch(setError);
+    fetchData().catch((error) => {
+      dispatch({ type: "GET_ALL_CHARACTERS_FAILURE", error: error.message });
+    });
   }, []);
 
   const { rulesSortData, onSortedByNumber, onSortedByName } =
@@ -90,7 +44,7 @@ export const EpisodesPage = () => {
   const { sortedFetchedData } = useSortData(
     rulesSortData,
     "episode",
-    allCharacters
+    characters
   );
 
   return error ? (
@@ -106,7 +60,7 @@ export const EpisodesPage = () => {
         arrayType: "episode",
       }}
     >
-      <Table />
+      <Table contextType={"episode"} />
     </EpisodesContext.Provider>
   );
 };
