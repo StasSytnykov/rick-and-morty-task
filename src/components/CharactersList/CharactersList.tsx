@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
@@ -9,15 +10,12 @@ import {
   CharactersNameStyled,
   CharactersEndedText,
 } from "./CharactersList.module";
-
-interface Props {
-  characters: FetchedObject[];
-  onLoadMoreCharacters: () => void;
-}
+import { CharactersContext } from "../../pages/HomePage";
 
 const MAX_CHARACTERS = 826;
 
-export const CharactersList = ({ characters, onLoadMoreCharacters }: Props) => {
+export const CharactersList = () => {
+  const { characters, onLoadMoreCharacters } = useContext(CharactersContext);
   return (
     <InfiniteScroll
       dataLength={characters.length}

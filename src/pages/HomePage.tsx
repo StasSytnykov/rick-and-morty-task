@@ -1,41 +1,62 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import {
-  charactersSelector,
-  charactersPageSelector,
-  charactersErrorSelector,
-} from "../redux/selectors";
-import {
-  getCharactersFetch,
-  getPage,
-} from "../redux/characters/charactersSlice";
+import { createContext, useEffect, useState } from "react";
+import { AxiosError } from "axios";
 import { CharactersList } from "../components/CharactersList/CharactersList";
+import { FetchedObject } from "../utils/types";
+import { fetchCharacters } from "../api/fetchData";
+
+interface IContext {
+  characters: FetchedObject[];
+  onLoadMoreCharacters: () => void;
+}
+
+const MAX_PAGE = 42;
+
+export const CharactersContext = createContext<IContext>({
+  characters: [],
+  onLoadMoreCharacters(): Promise<void> {
+    return Promise.resolve(undefined);
+  },
+});
 
 export const HomePage = () => {
-  const characters = useAppSelector(charactersSelector);
-  const page = useAppSelector(charactersPageSelector);
-  const error = useAppSelector(charactersErrorSelector);
-  const dispatch = useAppDispatch();
-
-  const onLoadMoreCharacters = () => {
-    dispatch(getPage());
-    dispatch(getCharactersFetch(page));
-  };
+  const [characters, setCharacters] = useState<FetchedObject[]>([]);
+  const [error, setError] = useState<null | { message: string }>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     if (characters.length === 0) {
-      dispatch(getCharactersFetch(1));
+      fetchCharacters(currentPage)
+        .then((r) => {
+          setTimeout(() => {
+            setCharacters(r);
+          }, 2000);
+        })
+        .catch((error) => setError(error));
     }
-  }, [dispatch, characters]);
+  }, [characters.length, currentPage]);
+
+  const onLoadMoreCharacters = async () => {
+    if (currentPage < MAX_PAGE) {
+      setCurrentPage((prevState) => prevState + 1);
+    }
+    try {
+      const loadedMoreCharacters = await fetchCharacters(currentPage + 1);
+      setTimeout(() => {
+        setCharacters((prevState) => [...prevState, ...loadedMoreCharacters]);
+      }, 2000);
+    } catch (error) {
+      const err = error as AxiosError;
+      setError(err);
+    }
+  };
 
   return error ? (
     <div>{error.message}</div>
   ) : (
     <div>
-      <CharactersList
-        characters={characters}
-        onLoadMoreCharacters={onLoadMoreCharacters}
-      />
+      <CharactersContext.Provider value={{ characters, onLoadMoreCharacters }}>
+        <CharactersList />
+      </CharactersContext.Provider>
     </div>
   );
 };
