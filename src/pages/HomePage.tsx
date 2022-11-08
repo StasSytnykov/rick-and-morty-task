@@ -1,14 +1,10 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { AxiosError } from "axios";
 import { CharactersList } from "../components/CharactersList/CharactersList";
-import { FetchedObject, HomePageInitialState } from "../utils/types";
+import { HomePageInitialState } from "../utils/types";
 import { fetchCharacters } from "../api/fetchData";
 import { fetchReducer } from "../context/homePageReducer";
-
-interface IContext {
-  characters: FetchedObject[];
-  onLoadMoreCharacters: () => void;
-}
+import { TemplateCharactersContextProvider } from "../context/TemplateCharactersContext";
 
 const initialState: HomePageInitialState = {
   characters: [],
@@ -18,13 +14,6 @@ const initialState: HomePageInitialState = {
 };
 
 const MAX_PAGE = 42;
-
-export const CharactersContext = createContext<IContext>({
-  characters: [],
-  onLoadMoreCharacters(): Promise<void> {
-    return Promise.resolve(undefined);
-  },
-});
 
 export const HomePage = () => {
   const [{ characters, loadingStatus, error, page }, dispatch] = useReducer(
@@ -71,9 +60,12 @@ export const HomePage = () => {
     <div>{error.message}</div>
   ) : (
     <div>
-      <CharactersContext.Provider value={{ characters, onLoadMoreCharacters }}>
+      <TemplateCharactersContextProvider
+        characters={characters}
+        onLoadMoreCharacters={onLoadMoreCharacters}
+      >
         <CharactersList />
-      </CharactersContext.Provider>
+      </TemplateCharactersContextProvider>
     </div>
   );
 };
