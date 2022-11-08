@@ -5,7 +5,10 @@ type Action =
   | { type: "GET_LOCATIONS_SUCCESS"; locations: FetchedObject[] }
   | { type: "GET_LOCATIONS_FAILURE"; error: null | { message: string } };
 
-export const fetchReducer = (state: InitialLocationsState, action: Action) => {
+export const fetchReducer = (
+  state: InitialLocationsState,
+  action: Action
+): InitialLocationsState => {
   switch (action.type) {
     case "GET_LOCATIONS_FETCH":
       return { ...state, loadingStatus: "loading" };

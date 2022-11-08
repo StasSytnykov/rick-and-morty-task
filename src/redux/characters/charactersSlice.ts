@@ -5,6 +5,7 @@ const MAX_PAGE = 42;
 
 const initialState: InitialState = {
   characters: [],
+  locations: [],
   loadingStatus: "idle",
   error: null,
   page: 2,

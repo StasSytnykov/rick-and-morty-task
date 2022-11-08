@@ -8,7 +8,7 @@ type Action =
 export const fetchReducer = (
   state: InitialAllCharactersState,
   action: Action
-) => {
+): InitialAllCharactersState => {
   switch (action.type) {
     case "GET_ALL_CHARACTERS_FETCH":
       return { ...state, loadingStatus: "loading" };

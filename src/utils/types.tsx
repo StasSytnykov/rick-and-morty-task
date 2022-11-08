@@ -30,7 +30,7 @@ export type Status = "idle" | "loading" | "success" | "failed";
 
 export interface InitialState {
   characters: FetchedObject[];
-  locations?: FetchedObject[];
+  locations: FetchedObject[];
   loadingStatus: Status;
   error: null | { message: string };
   page: number;
