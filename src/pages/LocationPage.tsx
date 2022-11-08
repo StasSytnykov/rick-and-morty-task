@@ -19,9 +19,10 @@ const initialState: InitialLocationsState = {
 };
 
 export const LocationPage = () => {
-  const [{ locations, error, loadingStatus }, dispatch] = useReducer<
-    React.Reducer<any, any>
-  >(fetchReducer, initialState);
+  const [{ locations, error, loadingStatus }, dispatch] = useReducer(
+    fetchReducer,
+    initialState
+  );
 
   useEffect(() => {
     const fetchData = async () => {

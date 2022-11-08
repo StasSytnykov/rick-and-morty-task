@@ -19,9 +19,10 @@ const initialState: InitialAllCharactersState = {
 };
 
 export const EpisodesPage = () => {
-  const [{ characters, error, loadingStatus }, dispatch] = useReducer<
-    React.Reducer<any, any>
-  >(fetchReducer, initialState);
+  const [{ characters, error, loadingStatus }, dispatch] = useReducer(
+    fetchReducer,
+    initialState
+  );
 
   useEffect(() => {
     const fetchData = async () => {

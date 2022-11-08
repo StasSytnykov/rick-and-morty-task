@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import { AxiosError } from "axios";
 import { CharactersList } from "../components/CharactersList/CharactersList";
-import { FetchedObject, InitialState } from "../utils/types";
+import { FetchedObject, HomePageInitialState } from "../utils/types";
 import { fetchCharacters } from "../api/fetchData";
 import { fetchReducer } from "../context/homePageReducer";
 
@@ -10,7 +10,7 @@ interface IContext {
   onLoadMoreCharacters: () => void;
 }
 
-const initialState: InitialState = {
+const initialState: HomePageInitialState = {
   characters: [],
   loadingStatus: "idle",
   error: null,
