@@ -4,7 +4,7 @@ import { useSortData } from "../hooks/useSortData";
 import React, { useEffect, createContext, useReducer } from "react";
 import { InitialAllCharactersState, IContext } from "../utils/types";
 import { fetchAllCharacters } from "../api/fetchData";
-import { fetchReducer } from "../context/episodesReducer";
+import { fetchReducer } from "../context/reducers/episodesReducer";
 import { defaultContext } from "../context/defautlContext";
 
 export const EpisodesContext = createContext({

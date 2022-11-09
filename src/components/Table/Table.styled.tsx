@@ -1,12 +1,5 @@
 import styled from "styled-components";
 
-const LoaderThumb = styled.div`
-  display: flex;
-  justify-content: center;
-
-  margin-top: 50px;
-`;
-
 const TableStyled = styled.table`
   margin: 25px auto 0 auto;
   border-collapse: collapse;
@@ -66,7 +59,6 @@ export {
   Icon,
   TableHeadThumb,
   IconNumberThumb,
-  LoaderThumb,
   TableStyled,
   TableTrStyled,
   TableThStyled,

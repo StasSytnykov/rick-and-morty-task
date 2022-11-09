@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
 import { FetchedObject } from "../../utils/types";
 import {
-  CharactersLoaderThumb,
   CharactersListStyled,
   CharactersItemStyled,
   CharactersNameStyled,
@@ -23,11 +22,7 @@ export const CharactersList = () => {
       dataLength={characters.length}
       next={onLoadMoreCharacters}
       hasMore={characters.length < MAX_CHARACTERS}
-      loader={
-        <CharactersLoaderThumb>
-          <Loader />
-        </CharactersLoaderThumb>
-      }
+      loader={<Loader />}
       endMessage={<CharactersEndedText>Characters ended</CharactersEndedText>}
     >
       <CharactersListStyled>

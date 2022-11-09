@@ -1,4 +1,4 @@
-import { FetchedObject, InitialAllCharactersState } from "../utils/types";
+import { FetchedObject, InitialAllCharactersState } from "../../utils/types";
 
 type Action =
   | { type: "GET_ALL_CHARACTERS_FETCH" }

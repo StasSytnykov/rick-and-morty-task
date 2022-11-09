@@ -5,7 +5,6 @@ import {
   Icon,
   IconLetterThumb,
   IconNumberThumb,
-  LoaderThumb,
   TableHeadThumb,
   TableStyled,
   TableTdStyled,
@@ -31,9 +30,7 @@ export const Table = ({ contextType }: Props) => {
     contextType === "episode" ? EpisodesContext : LocationsContext
   );
   return loadingStatus === "loading" ? (
-    <LoaderThumb>
-      <Loader />
-    </LoaderThumb>
+    <Loader />
   ) : (
     <TableStyled>
       <THeadStyled>

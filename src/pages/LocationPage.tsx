@@ -2,7 +2,7 @@ import { Table } from "../components/Table/Table";
 import React, { createContext, useEffect, useReducer } from "react";
 import { defaultContext } from "../context/defautlContext";
 import { IContext, InitialLocationsState } from "../utils/types";
-import { fetchReducer } from "../context/locationsReducer";
+import { fetchReducer } from "../context/reducers/locationsReducer";
 import { fetchLocation } from "../api/fetchData";
 import { useSortData } from "../hooks/useSortData";
 import { useHandleSortData } from "../hooks/useHandleSortData";

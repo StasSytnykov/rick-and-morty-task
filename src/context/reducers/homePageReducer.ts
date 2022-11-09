@@ -1,4 +1,4 @@
-import { FetchedObject, HomePageInitialState } from "../utils/types";
+import { FetchedObject, HomePageInitialState } from "../../utils/types";
 
 const MAX_PAGE = 42;
 

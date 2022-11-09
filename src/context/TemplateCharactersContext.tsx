@@ -1,9 +1,11 @@
-import { FetchedObject } from "../utils/types";
+import { FetchedObject, Status } from "../utils/types";
 import { createContext, ReactNode } from "react";
+import { useFetchData } from "../hooks/useFetchData";
 
 interface IContext {
   characters: FetchedObject[];
   onLoadMoreCharacters: () => void;
+  loadingStatus: Status;
 }
 
 export const TemplateCharactersContext = createContext<IContext>({
@@ -11,22 +13,21 @@ export const TemplateCharactersContext = createContext<IContext>({
   onLoadMoreCharacters(): Promise<void> {
     return Promise.resolve(undefined);
   },
+  loadingStatus: "idle",
 });
 
 interface Props {
   children: ReactNode;
-  characters: FetchedObject[];
-  onLoadMoreCharacters: () => void;
 }
 
-export const TemplateCharactersContextProvider = ({
-  children,
-  characters,
-  onLoadMoreCharacters,
-}: Props) => (
-  <TemplateCharactersContext.Provider
-    value={{ characters, onLoadMoreCharacters }}
-  >
-    {children}
-  </TemplateCharactersContext.Provider>
-);
+export const TemplateCharactersContextProvider = ({ children }: Props) => {
+  const { characters, onLoadMoreCharacters, loadingStatus } = useFetchData();
+
+  return (
+    <TemplateCharactersContext.Provider
+      value={{ characters, onLoadMoreCharacters, loadingStatus }}
+    >
+      {children}
+    </TemplateCharactersContext.Provider>
+  );
+};

@@ -1,12 +1,5 @@
 import styled from "styled-components";
 
-const CharactersLoaderThumb = styled.div`
-  display: flex;
-  justify-content: center;
-
-  margin: 30px 0;
-`;
-
 const CharactersListStyled = styled.ul`
   display: grid;
   gap: 30px;
@@ -41,7 +34,6 @@ const CharactersEndedText = styled.h2`
 `;
 
 export {
-  CharactersLoaderThumb,
   CharactersListStyled,
   CharactersItemStyled,
   CharactersNameStyled,

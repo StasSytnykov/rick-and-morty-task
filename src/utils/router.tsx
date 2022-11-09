@@ -5,6 +5,7 @@ import { CharacterPage } from "../pages/CharacterPage";
 import { StatisticsPage } from "../pages/StatisticsPage";
 import { EpisodesPage } from "../pages/EpisodesPage";
 import { LocationPage } from "../pages/LocationPage";
+import { TemplateCharactersContextProvider } from "../context/TemplateCharactersContext";
 
 export const router = createBrowserRouter(
   [
@@ -13,7 +14,14 @@ export const router = createBrowserRouter(
       element: <App />,
       children: [
         { index: true, element: <HomePage /> },
-        { path: "character/id=:id", element: <CharacterPage /> },
+        {
+          path: "character/id=:id",
+          element: (
+            <TemplateCharactersContextProvider>
+              <CharacterPage />
+            </TemplateCharactersContextProvider>
+          ),
+        },
         {
           path: "statistics",
           element: <StatisticsPage />,

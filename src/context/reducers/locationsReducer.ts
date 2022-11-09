@@ -1,4 +1,4 @@
-import { FetchedObject, InitialLocationsState } from "../utils/types";
+import { FetchedObject, InitialLocationsState } from "../../utils/types";
 
 type Action =
   | { type: "GET_LOCATIONS_FETCH" }
