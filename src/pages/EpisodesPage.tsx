@@ -25,19 +25,21 @@ export const EpisodesPage = () => {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch({ type: "GET_ALL_CHARACTERS_FETCH" });
-      const fetchedAllCharacters = await fetchAllCharacters();
-      dispatch({
-        type: "GET_ALL_CHARACTERS_SUCCESS",
-        characters: [...fetchedAllCharacters],
-      });
-    };
+    if (characters.length === 0) {
+      const fetchData = async () => {
+        dispatch({ type: "GET_ALL_CHARACTERS_FETCH" });
+        const fetchedAllCharacters = await fetchAllCharacters();
+        dispatch({
+          type: "GET_ALL_CHARACTERS_SUCCESS",
+          characters: [...fetchedAllCharacters],
+        });
+      };
 
-    fetchData().catch((error) => {
-      dispatch({ type: "GET_ALL_CHARACTERS_FAILURE", error: error.message });
-    });
-  }, []);
+      fetchData().catch((error) => {
+        dispatch({ type: "GET_ALL_CHARACTERS_FAILURE", error: error.message });
+      });
+    }
+  }, [characters.length, dispatch]);
 
   const { rulesSortData, onSortedByNumber, onSortedByName } =
     useHandleSortData();
