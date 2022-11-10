@@ -6,28 +6,31 @@ interface IContext {
   characters: FetchedObject[];
   onLoadMoreCharacters: () => void;
   loadingStatus: Status;
+  error: null | { message: string };
 }
 
-export const TemplateCharactersContext = createContext<IContext>({
+export const CharactersContext = createContext<IContext>({
   characters: [],
   onLoadMoreCharacters(): Promise<void> {
     return Promise.resolve(undefined);
   },
   loadingStatus: "idle",
+  error: null,
 });
 
 interface Props {
   children: ReactNode;
 }
 
-export const TemplateCharactersContextProvider = ({ children }: Props) => {
-  const { characters, onLoadMoreCharacters, loadingStatus } = useFetchData();
+export const CharactersContextProvider = ({ children }: Props) => {
+  const { characters, onLoadMoreCharacters, loadingStatus, error } =
+    useFetchData();
 
   return (
-    <TemplateCharactersContext.Provider
-      value={{ characters, onLoadMoreCharacters, loadingStatus }}
+    <CharactersContext.Provider
+      value={{ characters, onLoadMoreCharacters, loadingStatus, error }}
     >
       {children}
-    </TemplateCharactersContext.Provider>
+    </CharactersContext.Provider>
   );
 };

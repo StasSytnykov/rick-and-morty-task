@@ -5,29 +5,43 @@ import { CharacterPage } from "../pages/CharacterPage";
 import { StatisticsPage } from "../pages/StatisticsPage";
 import { EpisodesPage } from "../pages/EpisodesPage";
 import { LocationPage } from "../pages/LocationPage";
-import { TemplateCharactersContextProvider } from "../context/TemplateCharactersContext";
+import { CharactersContextProvider } from "../context/CharactersContext";
+import { LocationsContextProvider } from "../context/LocationContext";
+import { EpisodesContextProvider } from "../context/EpisodesContext";
 
 export const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <App />,
+      element: (
+        <CharactersContextProvider>
+          <App />
+        </CharactersContextProvider>
+      ),
       children: [
-        { index: true, element: <HomePage /> },
+        {
+          index: true,
+          element: <HomePage />,
+        },
         {
           path: "character/id=:id",
-          element: (
-            <TemplateCharactersContextProvider>
-              <CharacterPage />
-            </TemplateCharactersContextProvider>
-          ),
+          element: <CharacterPage />,
         },
         {
           path: "statistics",
-          element: <StatisticsPage />,
+          element: (
+            <EpisodesContextProvider>
+              <LocationsContextProvider>
+                <StatisticsPage />
+              </LocationsContextProvider>
+            </EpisodesContextProvider>
+          ),
           children: [
             { path: "episodes", element: <EpisodesPage /> },
-            { path: "location", element: <LocationPage /> },
+            {
+              path: "location",
+              element: <LocationPage />,
+            },
           ],
         },
       ],

@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { EpisodesContext } from "../../pages/EpisodesPage";
-import { LocationsContext } from "../../pages/LocationPage";
+import { EpisodesContext } from "../../context/EpisodesContext";
+import { LocationsContext } from "../../context/LocationContext";
 import {
   Icon,
   IconLetterThumb,

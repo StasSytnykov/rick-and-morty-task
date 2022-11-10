@@ -45,6 +45,7 @@ export interface IContext {
   onSortedByName: () => void;
   rulesSortData: SortType;
   arrayType: ArrayType;
+  error?: null | { message: string };
 }
 
 export type InitialAllCharactersState = Omit<

@@ -9,15 +9,16 @@ import {
   CharactersNameStyled,
   CharactersEndedText,
 } from "./CharactersList.module";
-import { TemplateCharactersContext } from "../../context/TemplateCharactersContext";
+import { CharactersContext } from "../../context/CharactersContext";
 
 const MAX_CHARACTERS = 826;
 
 export const CharactersList = () => {
-  const { characters, onLoadMoreCharacters } = useContext(
-    TemplateCharactersContext
-  );
-  return (
+  const { characters, onLoadMoreCharacters, error } =
+    useContext(CharactersContext);
+  return error ? (
+    <div>{error.message}</div>
+  ) : (
     <InfiniteScroll
       dataLength={characters.length}
       next={onLoadMoreCharacters}
