@@ -15,7 +15,11 @@ export const router = createBrowserRouter(
       path: "/",
       element: (
         <CharactersContextProvider>
-          <App />
+          <EpisodesContextProvider>
+            <LocationsContextProvider>
+              <App />
+            </LocationsContextProvider>
+          </EpisodesContextProvider>
         </CharactersContextProvider>
       ),
       children: [
@@ -29,13 +33,7 @@ export const router = createBrowserRouter(
         },
         {
           path: "statistics",
-          element: (
-            <EpisodesContextProvider>
-              <LocationsContextProvider>
-                <StatisticsPage />
-              </LocationsContextProvider>
-            </EpisodesContextProvider>
-          ),
+          element: <StatisticsPage />,
           children: [
             { path: "episodes", element: <EpisodesPage /> },
             {
