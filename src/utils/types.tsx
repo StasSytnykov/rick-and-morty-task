@@ -1,3 +1,7 @@
+import React from "react";
+import { EpisodeAction } from "../context/reducers/episodesReducer";
+import { LocationAction } from "../context/reducers/locationsReducer";
+
 export interface FetchedObject {
   id: number;
   name: string;
@@ -16,15 +20,6 @@ export interface FetchedObject {
 }
 
 export type ArrayType = "episode" | "residents";
-
-export interface Props {
-  sortedData: FetchedObject[];
-  onSortedByNumber: () => void;
-  onSortedByName: () => void;
-  isLoading: string;
-  rulesSortData: SortType;
-  arrayType: ArrayType;
-}
 
 export type Status = "idle" | "loading" | "success" | "failed";
 
@@ -45,7 +40,9 @@ export interface IContext {
   onSortedByName: () => void;
   rulesSortData: SortType;
   arrayType: ArrayType;
-  error?: null | { message: string };
+  error: null | { message: string };
+  episodesDispatch: React.Dispatch<EpisodeAction>;
+  locationsDispatch: React.Dispatch<LocationAction>;
 }
 
 export type InitialAllCharactersState = Omit<

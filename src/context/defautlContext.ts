@@ -4,4 +4,5 @@ export const defaultContext = {
   onSortedByNumber(): void {},
   rulesSortData: "DESC_NUM",
   sortedFetchedData: [],
+  error: null,
 };

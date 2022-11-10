@@ -1,13 +1,13 @@
 import { FetchedObject, InitialLocationsState } from "../../utils/types";
 
-type Action =
+export type LocationAction =
   | { type: "GET_LOCATIONS_FETCH" }
   | { type: "GET_LOCATIONS_SUCCESS"; locations: FetchedObject[] }
   | { type: "GET_LOCATIONS_FAILURE"; error: null | { message: string } };
 
 export const fetchReducer = (
   state: InitialLocationsState,
-  action: Action
+  action: LocationAction
 ): InitialLocationsState => {
   switch (action.type) {
     case "GET_LOCATIONS_FETCH":

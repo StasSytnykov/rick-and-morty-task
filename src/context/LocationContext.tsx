@@ -1,8 +1,7 @@
-import { createContext, ReactNode, useEffect, useReducer } from "react";
+import { createContext, ReactNode, useReducer } from "react";
 import { defaultContext } from "./defautlContext";
 import { IContext, InitialLocationsState } from "../utils/types";
 import { fetchReducer } from "./reducers/locationsReducer";
-import { fetchLocation } from "../api/fetchData";
 import { useHandleSortData } from "../hooks/useHandleSortData";
 import { useSortData } from "../hooks/useSortData";
 
@@ -10,10 +9,13 @@ interface Props {
   children: ReactNode;
 }
 
+export type LocationContextType = Omit<IContext, "episodesDispatch">;
+
 export const LocationsContext = createContext({
   arrayType: "residents",
+  locationsDispatch: () => {},
   ...defaultContext,
-} as IContext);
+} as LocationContextType);
 
 const initialState: InitialLocationsState = {
   locations: [],
@@ -22,25 +24,10 @@ const initialState: InitialLocationsState = {
 };
 
 export const LocationsContextProvider = ({ children }: Props) => {
-  const [{ locations, error, loadingStatus }, dispatch] = useReducer(
+  const [{ locations, error, loadingStatus }, locationsDispatch] = useReducer(
     fetchReducer,
     initialState
   );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      dispatch({ type: "GET_LOCATIONS_FETCH" });
-      const fetchedLocations = await fetchLocation();
-      dispatch({
-        type: "GET_LOCATIONS_SUCCESS",
-        locations: [...fetchedLocations],
-      });
-    };
-
-    fetchData().catch((error) => {
-      dispatch({ type: "GET_LOCATIONS_FAILURE", error: error.message });
-    });
-  }, []);
 
   const { rulesSortData, onSortedByNumber, onSortedByName } =
     useHandleSortData();
@@ -60,6 +47,7 @@ export const LocationsContextProvider = ({ children }: Props) => {
         rulesSortData,
         arrayType: "residents",
         error,
+        locationsDispatch,
       }}
     >
       {children}

@@ -1,8 +1,7 @@
-import { createContext, ReactNode, useEffect, useReducer } from "react";
+import { createContext, ReactNode, useReducer } from "react";
 import { defaultContext } from "./defautlContext";
 import { IContext, InitialAllCharactersState } from "../utils/types";
 import { fetchReducer } from "./reducers/episodesReducer";
-import { fetchAllCharacters } from "../api/fetchData";
 import { useHandleSortData } from "../hooks/useHandleSortData";
 import { useSortData } from "../hooks/useSortData";
 
@@ -10,10 +9,13 @@ interface Props {
   children: ReactNode;
 }
 
+export type EpisodesContextType = Omit<IContext, "locationsDispatch">;
+
 export const EpisodesContext = createContext({
   arrayType: "episode",
+  episodesDispatch: () => {},
   ...defaultContext,
-} as IContext);
+} as EpisodesContextType);
 
 const initialState: InitialAllCharactersState = {
   characters: [],
@@ -22,25 +24,10 @@ const initialState: InitialAllCharactersState = {
 };
 
 export const EpisodesContextProvider = ({ children }: Props) => {
-  const [{ characters, error, loadingStatus }, dispatch] = useReducer(
+  const [{ characters, error, loadingStatus }, episodesDispatch] = useReducer(
     fetchReducer,
     initialState
   );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      dispatch({ type: "GET_ALL_CHARACTERS_FETCH" });
-      const fetchedAllCharacters = await fetchAllCharacters();
-      dispatch({
-        type: "GET_ALL_CHARACTERS_SUCCESS",
-        characters: [...fetchedAllCharacters],
-      });
-    };
-
-    fetchData().catch((error) => {
-      dispatch({ type: "GET_ALL_CHARACTERS_FAILURE", error: error.message });
-    });
-  }, []);
 
   const { rulesSortData, onSortedByNumber, onSortedByName } =
     useHandleSortData();
@@ -61,6 +48,7 @@ export const EpisodesContextProvider = ({ children }: Props) => {
         rulesSortData,
         arrayType: "episode",
         error,
+        episodesDispatch,
       }}
     >
       {children}

@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { EpisodesContext } from "../../context/EpisodesContext";
-import { LocationsContext } from "../../context/LocationContext";
 import {
   Icon,
   IconLetterThumb,
@@ -13,22 +10,25 @@ import {
   THeadStyled,
 } from "./Table.styled";
 import { Loader } from "../Loader/Loader";
+import { ArrayType, FetchedObject, SortType } from "../../utils/types";
 
-interface Props {
-  contextType: string;
+export interface Props {
+  sortedFetchedData: FetchedObject[];
+  onSortedByNumber: () => void;
+  onSortedByName: () => void;
+  loadingStatus: string;
+  rulesSortData: SortType;
+  arrayType: ArrayType;
 }
 
-export const Table = ({ contextType }: Props) => {
-  const {
-    loadingStatus,
-    sortedFetchedData,
-    onSortedByNumber,
-    onSortedByName,
-    rulesSortData,
-    arrayType,
-  } = useContext(
-    contextType === "episode" ? EpisodesContext : LocationsContext
-  );
+export const Table = ({
+  onSortedByNumber,
+  onSortedByName,
+  sortedFetchedData,
+  rulesSortData,
+  arrayType,
+  loadingStatus,
+}: Props) => {
   return loadingStatus === "loading" ? (
     <Loader />
   ) : (
