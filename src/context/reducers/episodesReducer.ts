@@ -1,13 +1,13 @@
-import { FetchedObject, InitialAllCharactersState } from "../utils/types";
+import { FetchedObject, InitialAllCharactersState } from "../../utils/types";
 
-type Action =
+export type EpisodeAction =
   | { type: "GET_ALL_CHARACTERS_FETCH" }
   | { type: "GET_ALL_CHARACTERS_SUCCESS"; characters: FetchedObject[] }
   | { type: "GET_ALL_CHARACTERS_FAILURE"; error: null | { message: string } };
 
 export const fetchReducer = (
   state: InitialAllCharactersState,
-  action: Action
+  action: EpisodeAction
 ): InitialAllCharactersState => {
   switch (action.type) {
     case "GET_ALL_CHARACTERS_FETCH":

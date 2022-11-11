@@ -4,28 +4,26 @@ import { Link } from "react-router-dom";
 import { Loader } from "../Loader/Loader";
 import { FetchedObject } from "../../utils/types";
 import {
-  CharactersLoaderThumb,
   CharactersListStyled,
   CharactersItemStyled,
   CharactersNameStyled,
   CharactersEndedText,
 } from "./CharactersList.module";
-import { CharactersContext } from "../../pages/HomePage";
+import { CharactersContext } from "../../context/CharactersContext";
 
 const MAX_CHARACTERS = 826;
 
 export const CharactersList = () => {
-  const { characters, onLoadMoreCharacters } = useContext(CharactersContext);
-  return (
+  const { characters, onLoadMoreCharacters, error } =
+    useContext(CharactersContext);
+  return error ? (
+    <div>{error.message}</div>
+  ) : (
     <InfiniteScroll
       dataLength={characters.length}
       next={onLoadMoreCharacters}
       hasMore={characters.length < MAX_CHARACTERS}
-      loader={
-        <CharactersLoaderThumb>
-          <Loader />
-        </CharactersLoaderThumb>
-      }
+      loader={<Loader />}
       endMessage={<CharactersEndedText>Characters ended</CharactersEndedText>}
     >
       <CharactersListStyled>

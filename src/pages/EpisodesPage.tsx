@@ -1,67 +1,50 @@
-import { useHandleSortData } from "../hooks/useHandleSortData";
 import { Table } from "../components/Table/Table";
-import { useSortData } from "../hooks/useSortData";
-import React, { useEffect, createContext, useReducer } from "react";
-import { InitialAllCharactersState, IContext } from "../utils/types";
+import { useContext, useEffect } from "react";
+import { EpisodesContext } from "../context/EpisodesContext";
 import { fetchAllCharacters } from "../api/fetchData";
-import { fetchReducer } from "../context/episodesReducer";
-import { defaultContext } from "../context/defautlContext";
-
-export const EpisodesContext = createContext({
-  arrayType: "episode",
-  ...defaultContext,
-} as IContext);
-
-const initialState: InitialAllCharactersState = {
-  characters: [],
-  error: null,
-  loadingStatus: "idle",
-};
 
 export const EpisodesPage = () => {
-  const [{ characters, error, loadingStatus }, dispatch] = useReducer(
-    fetchReducer,
-    initialState
-  );
+  const {
+    error,
+    episodesDispatch,
+    sortedFetchedData,
+    onSortedByNumber,
+    onSortedByName,
+    rulesSortData,
+    arrayType,
+    loadingStatus,
+  } = useContext(EpisodesContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch({ type: "GET_ALL_CHARACTERS_FETCH" });
-      const fetchedAllCharacters = await fetchAllCharacters();
-      dispatch({
-        type: "GET_ALL_CHARACTERS_SUCCESS",
-        characters: [...fetchedAllCharacters],
+    if (sortedFetchedData.length === 0) {
+      const fetchData = async () => {
+        episodesDispatch({ type: "GET_ALL_CHARACTERS_FETCH" });
+        const fetchedAllCharacters = await fetchAllCharacters();
+        episodesDispatch({
+          type: "GET_ALL_CHARACTERS_SUCCESS",
+          characters: [...fetchedAllCharacters],
+        });
+      };
+
+      fetchData().catch((error) => {
+        episodesDispatch({
+          type: "GET_ALL_CHARACTERS_FAILURE",
+          error: error.message,
+        });
       });
-    };
-
-    fetchData().catch((error) => {
-      dispatch({ type: "GET_ALL_CHARACTERS_FAILURE", error: error.message });
-    });
-  }, []);
-
-  const { rulesSortData, onSortedByNumber, onSortedByName } =
-    useHandleSortData();
-
-  const { sortedFetchedData } = useSortData(
-    rulesSortData,
-    "episode",
-    characters
-  );
+    }
+  }, [episodesDispatch, sortedFetchedData.length]);
 
   return error ? (
     <div>{error.message}</div>
   ) : (
-    <EpisodesContext.Provider
-      value={{
-        loadingStatus,
-        sortedFetchedData,
-        onSortedByNumber,
-        onSortedByName,
-        rulesSortData,
-        arrayType: "episode",
-      }}
-    >
-      <Table contextType={"episode"} />
-    </EpisodesContext.Provider>
+    <Table
+      arrayType={arrayType}
+      loadingStatus={loadingStatus}
+      onSortedByName={onSortedByName}
+      onSortedByNumber={onSortedByNumber}
+      rulesSortData={rulesSortData}
+      sortedFetchedData={sortedFetchedData}
+    />
   );
 };

@@ -1,68 +1,49 @@
+import { useContext, useEffect } from "react";
 import { Table } from "../components/Table/Table";
-import React, { createContext, useEffect, useReducer } from "react";
-import { defaultContext } from "../context/defautlContext";
-import { IContext, InitialLocationsState } from "../utils/types";
-import { fetchReducer } from "../context/locationsReducer";
+import { LocationsContext } from "../context/LocationContext";
 import { fetchLocation } from "../api/fetchData";
-import { useSortData } from "../hooks/useSortData";
-import { useHandleSortData } from "../hooks/useHandleSortData";
-
-export const LocationsContext = createContext({
-  arrayType: "residents",
-  ...defaultContext,
-} as IContext);
-
-const initialState: InitialLocationsState = {
-  locations: [],
-  error: null,
-  loadingStatus: "idle",
-};
 
 export const LocationPage = () => {
-  const [{ locations, error, loadingStatus }, dispatch] = useReducer(
-    fetchReducer,
-    initialState
-  );
-  console.log(locations);
+  const {
+    error,
+    locationsDispatch,
+    sortedFetchedData,
+    onSortedByNumber,
+    onSortedByName,
+    rulesSortData,
+    arrayType,
+    loadingStatus,
+  } = useContext(LocationsContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch({ type: "GET_LOCATIONS_FETCH" });
-      const fetchedLocations = await fetchLocation();
-      dispatch({
-        type: "GET_LOCATIONS_SUCCESS",
-        locations: [...fetchedLocations],
+    if (sortedFetchedData.length === 0) {
+      const fetchData = async () => {
+        locationsDispatch({ type: "GET_LOCATIONS_FETCH" });
+        const fetchedLocations = await fetchLocation();
+        locationsDispatch({
+          type: "GET_LOCATIONS_SUCCESS",
+          locations: [...fetchedLocations],
+        });
+      };
+      fetchData().catch((error) => {
+        locationsDispatch({
+          type: "GET_LOCATIONS_FAILURE",
+          error: error.message,
+        });
       });
-    };
-
-    fetchData().catch((error) => {
-      dispatch({ type: "GET_LOCATIONS_FAILURE", error: error.message });
-    });
-  }, []);
-
-  const { rulesSortData, onSortedByNumber, onSortedByName } =
-    useHandleSortData();
-
-  const { sortedFetchedData } = useSortData(
-    rulesSortData,
-    "residents",
-    locations
-  );
+    }
+  }, [locationsDispatch, sortedFetchedData.length]);
 
   return error ? (
     <div>{error.message}</div>
   ) : (
-    <LocationsContext.Provider
-      value={{
-        loadingStatus,
-        sortedFetchedData,
-        onSortedByNumber,
-        onSortedByName,
-        rulesSortData,
-        arrayType: "residents",
-      }}
-    >
-      <Table contextType={"location"} />;
-    </LocationsContext.Provider>
+    <Table
+      arrayType={arrayType}
+      loadingStatus={loadingStatus}
+      onSortedByName={onSortedByName}
+      onSortedByNumber={onSortedByNumber}
+      rulesSortData={rulesSortData}
+      sortedFetchedData={sortedFetchedData}
+    />
   );
 };

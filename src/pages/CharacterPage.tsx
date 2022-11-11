@@ -1,11 +1,11 @@
 import { CharacterItem } from "../components/CharacterItem/CharacterItem";
-import { useAppSelector } from "../hooks/reduxHooks";
-import { charactersSelector } from "../redux/selectors";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { CharactersContext } from "../context/CharactersContext";
 
 export const CharacterPage = () => {
-  const characters = useAppSelector(charactersSelector);
   const { id } = useParams();
+  const { characters } = useContext(CharactersContext);
   const selectedCharacter = characters.find(
     (character) => character.id === Number(id)
   );
