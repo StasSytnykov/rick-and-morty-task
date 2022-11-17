@@ -1,7 +1,3 @@
-import React from "react";
-import { EpisodeAction } from "../context/reducers/episodesReducer";
-import { LocationAction } from "../context/reducers/locationsReducer";
-
 export interface FetchedObject {
   id: number;
   name: string;
@@ -25,31 +21,9 @@ export type Status = "idle" | "loading" | "success" | "failed";
 
 export interface InitialState {
   characters: FetchedObject[];
-  locations: FetchedObject[];
   loadingStatus: Status;
   error: null | { message: string };
   page: number;
 }
 
 export type SortType = "DESC_NAME" | "ASC_NAME" | "DESC_NUM" | "ASC_NUM";
-
-export interface IContext {
-  sortedFetchedData: FetchedObject[];
-  loadingStatus: Status;
-  onSortedByNumber: () => void;
-  onSortedByName: () => void;
-  rulesSortData: SortType;
-  arrayType: ArrayType;
-  error: null | { message: string };
-  episodesDispatch: React.Dispatch<EpisodeAction>;
-  locationsDispatch: React.Dispatch<LocationAction>;
-}
-
-export type InitialAllCharactersState = Omit<
-  InitialState,
-  "page" | "locations"
->;
-
-export type InitialLocationsState = Omit<InitialState, "page" | "characters">;
-
-export type HomePageInitialState = Omit<InitialState, "locations">;

@@ -1,4 +1,4 @@
-import { FetchedObject, HomePageInitialState } from "../../utils/types";
+import { FetchedObject, InitialState } from "../../utils/types";
 
 const MAX_PAGE = 42;
 
@@ -9,9 +9,9 @@ type Action =
   | { type: "GET_CHARACTERS_FAILURE"; error: null | { message: string } };
 
 export const fetchReducer = (
-  state: HomePageInitialState,
+  state: InitialState,
   action: Action
-): HomePageInitialState => {
+): InitialState => {
   switch (action.type) {
     case "GET_PAGE":
       return {

@@ -1,47 +1,29 @@
-import { ReactElement, useContext, useEffect } from "react";
+import { ReactElement } from "react";
 import { Table } from "../../components/Table/Table";
-import { LocationsContext } from "../../context/LocationContext";
 import { fetchLocation } from "../../utils/fetchData";
 import StatisticsLayout from "../../components/StatisticsLayout/StatisticsLayout";
 import { NextPageWithLayout } from "../_app";
+import { GetStaticProps } from "next";
+import { useHandleSortData } from "../../hooks/useHandleSortData";
+import { useSortData } from "../../hooks/useSortData";
+import { FetchedObject } from "../../utils/types";
 
-const LocationPage: NextPageWithLayout = () => {
-  const {
-    error,
-    locationsDispatch,
-    sortedFetchedData,
-    onSortedByNumber,
-    onSortedByName,
+export interface Props {
+  locations: FetchedObject[];
+}
+
+const LocationPage: NextPageWithLayout<Props> = ({ locations }) => {
+  const { rulesSortData, onSortedByNumber, onSortedByName } =
+    useHandleSortData();
+  const { sortedFetchedData } = useSortData(
     rulesSortData,
-    arrayType,
-    loadingStatus,
-  } = useContext(LocationsContext);
+    "residents",
+    locations
+  );
 
-  useEffect(() => {
-    if (sortedFetchedData.length === 0) {
-      const fetchData = async () => {
-        locationsDispatch({ type: "GET_LOCATIONS_FETCH" });
-        const fetchedLocations = await fetchLocation();
-        locationsDispatch({
-          type: "GET_LOCATIONS_SUCCESS",
-          locations: [...fetchedLocations],
-        });
-      };
-      fetchData().catch((error) => {
-        locationsDispatch({
-          type: "GET_LOCATIONS_FAILURE",
-          error: error.message,
-        });
-      });
-    }
-  }, [locationsDispatch, sortedFetchedData.length]);
-
-  return error ? (
-    <div>{error.message}</div>
-  ) : (
+  return (
     <Table
-      arrayType={arrayType}
-      loadingStatus={loadingStatus}
+      arrayType={"residents"}
       onSortedByName={onSortedByName}
       onSortedByNumber={onSortedByNumber}
       rulesSortData={rulesSortData}
@@ -52,6 +34,16 @@ const LocationPage: NextPageWithLayout = () => {
 
 LocationPage.getLayout = function getLayout(page: ReactElement) {
   return <StatisticsLayout>{page}</StatisticsLayout>;
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetchLocation();
+
+  return {
+    props: {
+      locations: res,
+    },
+  };
 };
 
 export default LocationPage;

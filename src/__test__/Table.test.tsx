@@ -8,7 +8,6 @@ describe("CharactersList", () => {
   render(
     <Table
       arrayType={"episode"}
-      loadingStatus={"success"}
       onSortedByName={mockFn}
       onSortedByNumber={mockFn}
       rulesSortData={"DESC_NAME"}
@@ -24,7 +23,6 @@ describe("CharactersList", () => {
     render(
       <Table
         arrayType={"episode"}
-        loadingStatus={"success"}
         onSortedByName={mockFn}
         onSortedByNumber={mockFn}
         rulesSortData={"DESC_NAME"}
@@ -38,7 +36,6 @@ describe("CharactersList", () => {
     render(
       <Table
         arrayType={"episode"}
-        loadingStatus={"success"}
         onSortedByName={mockFn}
         onSortedByNumber={mockFn}
         rulesSortData={"DESC_NAME"}

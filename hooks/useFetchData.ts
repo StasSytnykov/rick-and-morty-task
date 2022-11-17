@@ -1,12 +1,12 @@
 import { useEffect, useReducer } from "react";
 import { fetchReducer } from "../context/reducers/homePageReducer";
 import { fetchCharacters } from "../utils/fetchData";
-import { HomePageInitialState } from "../utils/types";
+import { InitialState } from "../utils/types";
 import { AxiosError } from "axios";
 
 const MAX_PAGE = 42;
 
-const initialState: HomePageInitialState = {
+const initialState: InitialState = {
   characters: [],
   loadingStatus: "idle",
   error: null,
