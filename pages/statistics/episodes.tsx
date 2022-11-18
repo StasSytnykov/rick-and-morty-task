@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import type { NextPageWithLayout } from "../_app";
+// import { useQuery } from "react-query";
 import { Table } from "../../components/Table/Table";
 import { fetchAllCharacters } from "../../utils/fetchData";
 import StatisticsLayout from "../../components/StatisticsLayout/StatisticsLayout";

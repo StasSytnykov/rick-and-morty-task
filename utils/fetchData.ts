@@ -4,7 +4,12 @@ const BASE_URL = "https://rickandmortyapi.com/api/";
 
 const fetchCharacters = async (page: number) => {
   const { data } = await axios.get(`${BASE_URL}character/?page=${page}`);
-  return data.results;
+  return data;
+};
+
+const fetchOneCharacter = async (id: string) => {
+  const { data } = await axios.get(`${BASE_URL}character/${id}`);
+  return data;
 };
 
 const fetchAllCharacters = async () => {
@@ -33,4 +38,9 @@ const fetchLocation = async () => {
   return data;
 };
 
-export { fetchCharacters, fetchAllCharacters, fetchLocation };
+export {
+  fetchCharacters,
+  fetchOneCharacter,
+  fetchAllCharacters,
+  fetchLocation,
+};
