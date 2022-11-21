@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "https://rickandmortyapi.com/api/";
 
-const fetchCharacters = async (page: number) => {
+const fetchCharacters = async (page = 1) => {
   const { data } = await axios.get(`${BASE_URL}character/?page=${page}`);
   return data;
 };

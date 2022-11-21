@@ -1,15 +1,16 @@
-import React from "react";
-// import  { useState, useEffect } from "react";
+import { useState } from "react";
 import type { ReactElement, ReactNode } from "react";
-// import Router from "next/router";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "../styles.css";
-// import { Loader } from "../components/Loader/Loader";
 import { NavBar } from "../components/NavBar/NavBar";
 
 config.autoAddCss = false;
@@ -23,23 +24,18 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = React.useState(() => new QueryClient());
-  // const [isLoading, setIsLoading] = useState(false);
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            retry: false,
+          },
+        },
+      })
+  );
   const getLayout = Component.getLayout ?? ((page) => page);
-
-  // useEffect(() => {
-  //   Router.events.on("routeChangeStart", () => {
-  //     setIsLoading(true);
-  //   });
-  //
-  //   Router.events.on("routeChangeComplete", () => {
-  //     setIsLoading(false);
-  //   });
-  //
-  //   Router.events.on("routeChangeError", () => {
-  //     setIsLoading(false);
-  //   });
-  // }, []);
 
   return (
     <>
@@ -52,7 +48,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           </Hydrate>
         </QueryClientProvider>
       )}
-      {/*{isLoading && <Loader />}*/}
     </>
   );
 }
